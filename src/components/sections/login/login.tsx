@@ -8,11 +8,14 @@ import {
 import ElementFormInput from "../../elements/form-input/form-input";
 import { Link } from "react-router-dom";
 import API from "../../../services/api/api";
+import { useNavigate } from "react-router-dom";
+import Auth from "../../../services/auth/auth";
 
 export type DataSectionLogin = {};
 
 export default function SectionLogin(data: DataSectionLogin) {
   const {} = data;
+  const navigate = useNavigate();
 
   type FormsField = {
     value: string;
@@ -78,17 +81,16 @@ export default function SectionLogin(data: DataSectionLogin) {
     API.public
       .postUserLogin({ email: email.value, password: password.value })
       .then((response) => {
-        // const { access_token, refresh_token, token_type } = response;
+        const { access_token, token_type } = response;
 
         console.log(response);
         console.log("logado");
 
         console.log(response);
 
-        // Cookie.set('auth_token', access_token);
-        // Cookie.set('token_type', token_type);
+        Auth.setAuth({ token: access_token, tokenType: token_type });
 
-        // router.replace("/painel");
+        navigate("/painel");
       })
       .catch((error) => {
         email.invalid = true;

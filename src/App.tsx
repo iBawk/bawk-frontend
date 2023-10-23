@@ -1,8 +1,5 @@
 import "./App.scss";
-import {
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import LayoutDashboard, {
   loaderLayoutDashboard,
   shouldRevalidateLayoutDashboard,
@@ -16,9 +13,12 @@ import {
 } from "react-icons/fa";
 import { MdInventory2 } from "react-icons/md";
 import { RiSettings4Fill } from "react-icons/ri";
-import PageDashboardHome from "./pages/dashboard/home/home";
+import PageDashboardHome, {
+  loaderPageDashboardHome,
+} from "./pages/dashboard/home/home";
 import LayoutAuth from "./pages/auth/layout";
 import PageLogin from "./pages/auth/login/login";
+import Auth from "./services/auth/auth";
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
@@ -52,6 +52,7 @@ const router = createBrowserRouter([
       {
         path: "/painel/",
         element: <PageDashboardHome />,
+        loader: loaderPageDashboardHome,
       },
       {
         path: "/painel/vendas",
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/auth/login",
-        element: <PageLogin/>,
+        element: <PageLogin />,
       },
       {
         path: "/auth/sign-up",

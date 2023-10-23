@@ -4,7 +4,8 @@ import { cloneElement } from "react";
 import { Button } from "antd";
 import iconLogo from "../../assets/imgs/icon.svg";
 import logo from "../../assets/imgs/logo-dark.svg";
-import { useLoaderData } from "react-router-dom";
+import Auth from "../../services/auth/auth";
+import { useLoaderData, redirect, useNavigate } from "react-router-dom";
 
 export type TypeOptionsMenu = {
   title: string;
@@ -16,21 +17,27 @@ export type DataStructMenu = {
   options: Array<TypeOptionsMenu>;
 };
 
-export type DataLoaderLayoutDashboard = {
-  test: string;
-};
+export type DataLoaderLayoutDashboard = {};
 
-export function loaderLayoutDashboard(): DataLoaderLayoutDashboard {
-  return { test: "Foi" };
+export function loaderLayoutDashboard(): DataLoaderLayoutDashboard | Response {
+  const authRes = Auth.getAuth();
+
+  if (!authRes || Auth.isTokenExpired(authRes.token))
+    return redirect("/auth/login");
+
+  return {};
 }
 
 export function shouldRevalidateLayoutDashboard() {
-  return true;
+  const authRes = Auth.getAuth();
+
+  return !authRes || Auth.isTokenExpired(authRes.token);
 }
 
 export default function LayoutDashboard(data: DataStructMenu) {
-  const { options } = data;
+  const navigate = useNavigate();
   const loaderData = useLoaderData() as DataLoaderLayoutDashboard;
+  const { options } = data;
 
   return (
     <main id="LayoutDashboard">
@@ -59,11 +66,10 @@ export default function LayoutDashboard(data: DataStructMenu) {
           <div className="user">
             <div className="user" />
             <Button
-            /* onClick={() => {
-                Cookies.remove("auth_token");
-                Cookies.remove("token_type");
-                router.replace("auth/login");
-              }} */
+              onClick={() => {
+                Auth.removeAuth();
+                navigate("/auth/login");
+              }}
             >
               Logout
             </Button>
