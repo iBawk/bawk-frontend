@@ -1,0 +1,111 @@
+#LayoutDashboard {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  .menu {
+    width: 80px;
+    height: 100%;
+    background-color: var(--secundary-color);
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .header {
+      overflow: hidden;
+      
+      .containerLogo{
+        display: flex;
+        width: 250px;
+
+        .icon{
+          width: 50px;
+          height: 50px;
+          padding: 15px;
+          object-fit: contain;
+          transition: all .3s;
+        }
+        
+        .logo{
+          width: 150px;
+          height: 80px;
+        }
+      }
+    }
+
+    .body {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      .option {
+        text-decoration: none;
+        height: 80px;
+        width: 250px;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        color: var(--tertiary-color);
+
+        .icon {
+          width: 30px;
+          height: 30px;
+          padding: 25px;
+        }
+
+        .text {
+          font-size: 20px;
+          text-transform: capitalize;
+        }
+
+        &:hover {
+          background-color: var(--secundary-color-darker);
+        }
+      }
+    }
+
+    .footer {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      
+      .userCard {
+        width: 250px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+
+        .userIcon {
+          width: 50px;
+          height: 50px;
+          margin: 15px;
+          background-color: red;
+          border-radius: 100%;
+        }
+      }
+    }
+
+    &:hover {
+      width: 250px;
+      .header{
+        .containerLogo{
+          .icon{
+            rotate: 90deg;
+          }
+        }
+      }
+    }
+  }
+  .content {
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: var(--secundary-color-light);
+  }
+}

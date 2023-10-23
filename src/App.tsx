@@ -1,0 +1,71 @@
+import "./App.scss";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import LayoutDashboard from "./pages/dashboard/layout";
+import { AiFillHome } from "react-icons/ai";
+import {
+  FaMoneyBill,
+  FaStoreAlt,
+  FaShoppingCart,
+  FaDollarSign,
+} from "react-icons/fa";
+import { MdInventory2 } from "react-icons/md";
+import { RiSettings4Fill } from "react-icons/ri";
+import PageDashboardHome from "./pages/dashboard/home/home";
+import LayoutAuth from "./pages/auth/layout";
+
+const menuOptions = [
+  { title: "Home", link: "", icon: <AiFillHome /> },
+  { title: "Vendas", link: "vendas", icon: <FaMoneyBill /> },
+  { title: "Produtos", link: "produtos", icon: <FaStoreAlt /> },
+  {
+    title: "Marketplace",
+    link: "marketplace",
+    icon: <FaShoppingCart />,
+  },
+  { title: "Finanças", link: "financas", icon: <FaDollarSign /> },
+  {
+    title: "Minhas Compras",
+    link: "minhas-compras",
+    icon: <MdInventory2 />,
+  },
+  {
+    title: "Configurações",
+    link: "configuracoes",
+    icon: <RiSettings4Fill />,
+  },
+];
+
+const router = createBrowserRouter([
+  {
+    path: "/painel",
+    element: <LayoutDashboard options={menuOptions} />,
+    children: [
+      {
+        path: "/painel/",
+        element: <PageDashboardHome />,
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <LayoutAuth />,
+    children: [
+      {
+        path: "/auth/login",
+        element: <>Login</>,
+      },
+      {
+        path: "/auth/sign-up",
+        element: <>Sign Up</>,
+      },
+    ],
+  },
+]);
+
+export default function App() {
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
+}
