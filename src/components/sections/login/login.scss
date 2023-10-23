@@ -1,0 +1,57 @@
+#SectionLoggin {
+  background-color: white;
+  border-radius: 30px;
+  padding: 40px;
+
+  .title {
+    padding: 0;
+    margin-bottom: 5px;
+    font-size: 24px;
+  }
+
+  .text {
+    font-size: 18px;
+    opacity: 0.8;
+    padding: 0;
+    margin: 0 0 40px 0;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+
+    .containerButtons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      margin-bottom: 30px;
+
+      .containerButton {
+        width: calc(100% - 20px);
+
+        .button {
+          width: 100%;
+          border-radius: 10px;
+          height: 50px;
+
+          &.buttonLoggin {
+            background-color: var(--primary-color);
+
+            &:hover {
+              background-color: var(--primary-color-darker);
+            }
+          }
+
+          &.buttonSiginUp {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+          }
+        }
+      }
+    }
+  }
+}

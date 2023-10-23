@@ -4,6 +4,7 @@ import { cloneElement } from "react";
 import { Button } from "antd";
 import iconLogo from "../../assets/imgs/icon.svg";
 import logo from "../../assets/imgs/logo-dark.svg";
+import { useLoaderData } from "react-router-dom";
 
 export type TypeOptionsMenu = {
   title: string;
@@ -15,8 +16,21 @@ export type DataStructMenu = {
   options: Array<TypeOptionsMenu>;
 };
 
+export type DataLoaderLayoutDashboard = {
+  test: string;
+};
+
+export function loaderLayoutDashboard(): DataLoaderLayoutDashboard {
+  return { test: "Foi" };
+}
+
+export function shouldRevalidateLayoutDashboard() {
+  return true;
+}
+
 export default function LayoutDashboard(data: DataStructMenu) {
   const { options } = data;
+  const loaderData = useLoaderData() as DataLoaderLayoutDashboard;
 
   return (
     <main id="LayoutDashboard">

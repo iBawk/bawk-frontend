@@ -1,0 +1,58 @@
+.ElementInput {
+  position: relative;
+  border-radius: 15px;
+  background-color: white;
+  transition: all 0.3s;
+  width: 100%;
+
+  .input {
+    background-color: white;
+    height: 60px;
+    border: none;
+    border-radius: 15px;
+    width: 100%;
+    margin-left: 5px;
+    position: relative;
+    padding: 0 10px;
+    font-size: 16px;
+
+    &:-webkit-autofill {
+      background: #fff !important;
+    }
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  .icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: all 0.3s;
+
+    &.valid {
+      color: green;
+    }
+    &.invalid {
+      color: red;
+    }
+  }
+
+  &.valid {
+    background-color: green;
+    .icon.valid {
+      opacity: 1;
+    }
+  }
+
+  &.invalid {
+    background-color: red;
+    .icon.invalid {
+      opacity: 1;
+    }
+  }
+}
