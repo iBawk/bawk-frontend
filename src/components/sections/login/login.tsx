@@ -76,17 +76,10 @@ export default function SectionLogin(data: DataSectionLogin) {
       return;
     }
 
-    console.log("Enviado");
-
     API.public
       .postUserLogin({ email: email.value, password: password.value })
       .then((response) => {
         const { access_token, token_type } = response;
-
-        console.log(response);
-        console.log("logado");
-
-        console.log(response);
 
         Auth.setAuth({ token: access_token, tokenType: token_type });
 

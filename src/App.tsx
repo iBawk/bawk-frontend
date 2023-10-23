@@ -18,7 +18,7 @@ import PageDashboardHome, {
 } from "./pages/dashboard/home/home";
 import LayoutAuth from "./pages/auth/layout";
 import PageLogin from "./pages/auth/login/login";
-import Auth from "./services/auth/auth";
+import PageSignUp from "./pages/auth/sign-up/sign-up";
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
@@ -70,7 +70,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth/sign-up",
-        element: <>Sign Up</>,
+        element: <PageSignUp />,
       },
     ],
   },
