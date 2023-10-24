@@ -17,22 +17,49 @@
     flex-direction: column;
     justify-content: space-between;
 
+    .option {
+      text-decoration: none;
+      height: 80px;
+      width: 250px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      color: var(--tertiary-color);
+      background-color: transparent;
+      cursor: pointer;
+
+      .icon {
+        width: 30px;
+        height: 30px;
+        padding: 25px;
+      }
+
+      .text {
+        font-size: 20px;
+        text-transform: capitalize;
+      }
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+
     .header {
       overflow: hidden;
-      
-      .containerLogo{
+
+      .containerLogo {
         display: flex;
         width: 250px;
 
-        .icon{
+        .icon {
           width: 50px;
           height: 50px;
           padding: 15px;
           object-fit: contain;
-          transition: all .3s;
+          transition: all 0.3s;
         }
-        
-        .logo{
+
+        .logo {
           width: 150px;
           height: 80px;
         }
@@ -43,43 +70,22 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-
-      .option {
-        text-decoration: none;
-        height: 80px;
-        width: 250px;
-        transition: all 0.3s;
-        display: flex;
-        align-items: center;
-        color: var(--tertiary-color);
-
-        .icon {
-          width: 30px;
-          height: 30px;
-          padding: 25px;
-        }
-
-        .text {
-          font-size: 20px;
-          text-transform: capitalize;
-        }
-
-        &:hover {
-          background-color: var(--secundary-color-darker);
-        }
-      }
     }
 
     .footer {
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      
+
       .userCard {
         width: 250px;
         height: 80px;
         display: flex;
         align-items: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 18px;
+        text-transform: capitalize;
 
         .userIcon {
           width: 50px;
@@ -87,15 +93,25 @@
           margin: 15px;
           background-color: red;
           border-radius: 100%;
+          text-transform: uppercase;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: bold;
+        }
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.05);
         }
       }
     }
 
     &:hover {
       width: 250px;
-      .header{
-        .containerLogo{
-          .icon{
+      .header {
+        .containerLogo {
+          .icon {
             rotate: 90deg;
           }
         }

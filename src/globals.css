@@ -29,3 +29,8 @@
   --dark-primary-color-darker: #aa0000;
   --dark-secundary-color-light: #343434;
 }
+
+body,
+html{
+  font-family: Roboto, Helvetica, sans-serif;
+}
