@@ -19,6 +19,20 @@ import PageDashboardHome, {
 import LayoutAuth from "./pages/auth/layout";
 import PageLogin from "./pages/auth/login/login";
 import PageSignUp from "./pages/auth/sign-up/sign-up";
+import PageSales, { loaderPageSales } from "./pages/dashboard/sales/page";
+import PageProducts, {
+  loaderPageProducts,
+} from "./pages/dashboard/products/page";
+import PageMarketplace, {
+  loaderPageMarketplace,
+} from "./pages/dashboard/marketplace/page";
+import PageFinance, { loaderPageFinance } from "./pages/dashboard/finance/page";
+import PageMyShopping, {
+  loaderPageMyShopping,
+} from "./pages/dashboard/my-shopping/page";
+import PageSettings, {
+  loaderPageSettings,
+} from "./pages/dashboard/settings/page";
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
@@ -56,7 +70,33 @@ const router = createBrowserRouter([
       },
       {
         path: "/painel/vendas",
-        element: <PageDashboardHome />,
+        element: <PageSales />,
+        loader: loaderPageSales,
+      },
+      {
+        path: "/painel/produtos",
+        element: <PageProducts />,
+        loader: loaderPageProducts,
+      },
+      {
+        path: "/painel/marketplace",
+        element: <PageMarketplace />,
+        loader: loaderPageMarketplace,
+      },
+      {
+        path: "/painel/financas",
+        element: <PageFinance />,
+        loader: loaderPageFinance,
+      },
+      {
+        path: "/painel/minhas-compras",
+        element: <PageMyShopping />,
+        loader: loaderPageMyShopping,
+      },
+      {
+        path: "/painel/configuracoes",
+        element: <PageSettings />,
+        loader: loaderPageSettings,
       },
     ],
   },
