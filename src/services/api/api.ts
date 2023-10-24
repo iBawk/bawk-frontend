@@ -3,6 +3,13 @@ import Axios from "axios";
 import { postUserRegister } from "./endpoints/user-register";
 import { postUserLogin } from "./endpoints/user-login";
 import { getUserMe } from "./endpoints/user-me";
+import {
+  getProduct,
+  getProducts,
+  postProduct,
+  deleteProduct,
+  postProductImage,
+} from "./endpoints/products";
 
 export const axios = Axios.create({
   baseURL: "http://127.0.0.1:3334",
@@ -19,7 +26,12 @@ const API = {
     postUserLogin,
   },
   private: {
-    getUserMe
+    getUserMe,
+    getProduct,
+    getProducts,
+    postProduct,
+    deleteProduct,
+    postProductImage,
   },
 };
 

@@ -14,7 +14,7 @@ export function getAuth(): DataAuth | null {
   const token = Cookies.get("auth_token");
   const tokenType = Cookies.get("token_type");
 
-  if (!token || !tokenType) return null;
+  if (!token || !tokenType || isTokenExpired(token)) return null;
 
   return { token, tokenType };
 }

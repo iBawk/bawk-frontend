@@ -1,0 +1,16 @@
+@import "../../../mixins.scss";
+
+#ElementProductForm{
+  .inputNumber{
+    width: 100%;
+  }
+  
+  .quill{
+    margin-bottom: 30px;
+  }
+
+  .containerButton{
+    display: flex;
+    justify-content: flex-end;
+  }
+}

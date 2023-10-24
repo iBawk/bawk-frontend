@@ -1,0 +1,23 @@
+#ElementImageInput {
+  position: relative;
+  .img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    border-radius: 5px;
+  }
+  .input {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    z-index: 10;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
