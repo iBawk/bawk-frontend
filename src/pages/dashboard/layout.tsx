@@ -8,6 +8,7 @@ import { useLoaderData, redirect, useNavigate } from "react-router-dom";
 import { ResponseGetUserMe } from "../../services/api/endpoints/user-me";
 import API from "../../services/api/api";
 import { BiLogOut } from "react-icons/bi";
+import { useState } from "react";
 
 export type TypeOptionsMenu = {
   title: string;
@@ -21,11 +22,14 @@ export type DataStructMenu = {
 
 export type DataLoaderLayoutDashboard = {
   userInformations: ResponseGetUserMe;
+  initialPage: string;
 };
 
-export async function loaderLayoutDashboard(): Promise<
-  DataLoaderLayoutDashboard | Response
-> {
+export async function loaderLayoutDashboard({
+  request,
+}: {
+  request: Request;
+}): Promise<DataLoaderLayoutDashboard | Response> {
   const authRes = Auth.getAuth();
 
   if (!authRes || Auth.isTokenExpired(authRes.token))
@@ -36,7 +40,10 @@ export async function loaderLayoutDashboard(): Promise<
     authRes.tokenType
   );
 
-  return { userInformations: responseUserMe };
+  return {
+    userInformations: responseUserMe,
+    initialPage: request.url.split("/")[4] ?? "",
+  };
 }
 
 export function shouldRevalidateLayoutDashboard() {
@@ -47,8 +54,12 @@ export function shouldRevalidateLayoutDashboard() {
 
 export default function LayoutDashboard({ options }: DataStructMenu) {
   const navigate = useNavigate();
-  const { user } = (useLoaderData() as DataLoaderLayoutDashboard)
-    .userInformations.loggedUserInfo;
+  const loaderData = useLoaderData() as DataLoaderLayoutDashboard;
+  const { user } = loaderData.userInformations.loggedUserInfo;
+
+  const [currentPage, setCurrentPage] = useState<string>(
+    loaderData.initialPage
+  );
 
   return (
     <main id="LayoutDashboard">
@@ -66,7 +77,13 @@ export default function LayoutDashboard({ options }: DataStructMenu) {
             });
 
             return (
-              <Link className="option" key={index} to={link} title={title}>
+              <Link
+                className={`option ${currentPage === link && "active"}`}
+                onClick={() => setCurrentPage(link)}
+                key={index}
+                to={link}
+                title={title}
+              >
                 {newIcon}
                 <span className="text">{title}</span>
               </Link>
