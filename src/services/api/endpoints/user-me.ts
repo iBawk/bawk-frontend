@@ -1,7 +1,6 @@
 import { axios } from "../api";
 
 export type ResponseGetUserMe = {
-  loggedUserInfo: {
     user: {
       id: string;
       name: string;
@@ -27,7 +26,6 @@ export type ResponseGetUserMe = {
       id: string;
       birthDate: string;
     };
-  };
 };
 
 export async function getUserMe(authToken: string, authTokenType: string) {

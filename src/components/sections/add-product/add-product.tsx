@@ -2,11 +2,11 @@ import "./add-product.scss";
 import ElementProductForm, {
   DataProductForm,
 } from "../../elements/product-form/product-form";
-import { Row, Col } from "antd";
 import { FormEvent, useState } from "react";
 import API from "../../../services/api/api";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../../services/auth/auth";
+import StructContainer from "../../structs/container/container";
 
 export default function SectionAddProduct() {
   const navigate = useNavigate();
@@ -25,7 +25,6 @@ export default function SectionAddProduct() {
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(productData);
 
     const auth = Auth.getAuth();
 
@@ -33,7 +32,6 @@ export default function SectionAddProduct() {
       navigate("/auth/login");
       return;
     }
-    console.log(auth);
 
     API.private
       .postProduct(auth, {
@@ -45,37 +43,32 @@ export default function SectionAddProduct() {
         sallerInEmail: productData.email.value,
         sallerInName: productData.salerName.value,
         sallerInPhone: productData.phone.value,
-        status: productData.visibleForSale.value ? 1 : 0,
+        situation: productData.visibleForSale.value ? 1 : 0,
       })
       .then((response) => {
-        console.log("deu bom", response);
         if (productData.image.value)
           API.private
             .postProductImage(auth, response.id, productData.image.value)
-            .then((response) => {
-              console.log("Deu bom imagem", response);
-            })
+            .then(() => {})
             .catch((e) => {
-              console.error("Deu RUim img", e);
+              console.error(e);
             });
       })
       .catch((e) => {
-        console.error("deu ruim", e);
+        console.error(e);
       });
   };
 
   return (
     <section id="SectionAddProduct">
-      <Row justify="center">
-        <Col span={16}>
-          <ElementProductForm
-            data={productData}
-            onSubmit={onSubmit}
-            setData={setProductData}
-            title="Adicionar novo produto"
-          />
-        </Col>
-      </Row>
+      <StructContainer>
+        <ElementProductForm
+          data={productData}
+          onSubmit={onSubmit}
+          setData={setProductData}
+          title="Adicionar novo produto"
+        />
+      </StructContainer>
     </section>
   );
 }
