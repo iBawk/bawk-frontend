@@ -18,6 +18,7 @@ import PageDashboardHome, {
   loaderPageDashboardHome,
 } from "./pages/dashboard/home/home";
 import LayoutAuth from "./pages/auth/layout";
+import LayoutCheckout from "./pages/checkout/checkout";
 import PageLogin from "./pages/auth/login/login";
 import PageSignUp from "./pages/auth/sign-up/sign-up";
 import PageSales, { loaderPageSales } from "./pages/dashboard/sales/page";
@@ -105,6 +106,11 @@ const router = createBrowserRouter([
         loader: loaderPageSettings,
       },
     ],
+  },
+  {
+    path: "/checkout",
+    element: <LayoutCheckout />,
+    
   },
   {
     path: "/auth",

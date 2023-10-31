@@ -10,6 +10,8 @@ import {
   deleteProduct,
   postProductImage,
 } from "./endpoints/products";
+import { postCheckout } from "./endpoints/checkout";
+
 
 export const axios = Axios.create({
   baseURL: "http://127.0.0.1:3334",
@@ -32,6 +34,7 @@ const API = {
     postProduct,
     deleteProduct,
     postProductImage,
+    postCheckout,
   },
 };
 
