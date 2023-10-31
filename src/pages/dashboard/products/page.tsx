@@ -29,7 +29,6 @@ export default function PageProducts() {
     loaderData.products
   ); 
 
-
   return (
     <main>
       <SectionProducts
