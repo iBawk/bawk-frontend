@@ -1,0 +1,12 @@
+.StructContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+
+  .containerContent {
+    max-width: 1400px;
+    width: 100%;
+    
+  }
+}

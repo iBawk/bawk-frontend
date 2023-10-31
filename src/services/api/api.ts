@@ -11,9 +11,11 @@ import {
   postProductImage,
 } from "./endpoints/products";
 
+const getProductImageURL = (productId: string) =>
+  `http://127.0.0.1:3334/product/image/${productId}`;
+
 export const axios = Axios.create({
   baseURL: "http://127.0.0.1:3334",
-  timeout: 1000,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -24,6 +26,7 @@ const API = {
   public: {
     postUserRegister,
     postUserLogin,
+    getProductImageURL,
   },
   private: {
     getUserMe,

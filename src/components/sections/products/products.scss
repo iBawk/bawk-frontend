@@ -1,0 +1,22 @@
+@import "../../../mixins.scss";
+
+#SectionProducts {
+  @include SectionDefault;
+  .containerInformations{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .productsCounter {
+      border: solid var(--tertiary-color) 1px;
+      color: var(--tertiary-color);
+      font-size: 28px;
+      padding: 5px 15px;
+      width: fit-content;
+      border-radius: 15px;
+    }
+  }
+
+  .hr{
+    margin: 15px 0 30px 0;
+  }
+}

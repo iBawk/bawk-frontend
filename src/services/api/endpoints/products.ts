@@ -51,7 +51,7 @@ export type BodyPostProduct = {
   format: string;
   category: string;
   markdown: string;
-  status: number;
+  situation: number;
   sallerInName: string;
   sallerInEmail: string;
   sallerInPhone: string;
@@ -80,8 +80,6 @@ export async function postProduct(
     headers: { Authorization: `Bearer ${auth.token}` },
   });
 
-  console.log(response.data);
-
   if (response.status !== 200) throw new Error(response.statusText);
 
   return response.data as ResponsePostProduct;
@@ -96,7 +94,7 @@ export async function deleteProduct(
   auth: DataAuth,
   id: string
 ): Promise<ResponseDeleteProduct> {
-  const response = await axios.delete(`/product?id=${id}`, {
+  const response = await axios.delete(`/product/${id}`, {
     headers: {
       Authorization: `Bearer ${auth.token}`,
     },
@@ -121,7 +119,6 @@ export async function postProductImage(
       "Content-Type": "multipart/form-data",
     },
   });
-  console.log(response.data);
 
   if (response.status !== 200) throw new Error(response.statusText);
 

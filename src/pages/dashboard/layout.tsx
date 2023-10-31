@@ -55,7 +55,7 @@ export function shouldRevalidateLayoutDashboard() {
 export default function LayoutDashboard({ options }: DataStructMenu) {
   const navigate = useNavigate();
   const loaderData = useLoaderData() as DataLoaderLayoutDashboard;
-  const { user } = loaderData.userInformations.loggedUserInfo;
+  const { user } = loaderData.userInformations;
 
   const [currentPage, setCurrentPage] = useState<string>(
     loaderData.initialPage
