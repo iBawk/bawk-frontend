@@ -60,7 +60,7 @@ export default function ElementProductCard({
         </div>
 
         <div className="body">
-          <h3 className="title">dasdasd asdasddas {title}</h3>
+          <h3 className="title"> {title}</h3>
           <span className="category">{category}</span>
           <hr className="bar" />
           <p className="text">{description}</p>
