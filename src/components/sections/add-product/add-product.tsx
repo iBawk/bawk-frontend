@@ -43,7 +43,7 @@ export default function SectionAddProduct() {
         sallerInEmail: productData.email.value,
         sallerInName: productData.salerName.value,
         sallerInPhone: productData.phone.value,
-        situation: productData.visibleForSale.value ? 1 : 0,
+        situation: productData.visibleForSale.value ? 2 : 1,
       })
       .then((response) => {
         if (productData.image.value)

@@ -85,6 +85,34 @@ export async function postProduct(
   return response.data as ResponsePostProduct;
 }
 
+export type BodyPutProduct = {
+  id: string;
+  name: string;
+  description: string;
+  format: string;
+  category: string;
+  markdown: string;
+  situation: number;
+  sallerInName: string;
+  sallerInEmail: string;
+  sallerInPhone: string;
+};
+
+export async function putProduct(
+  auth: DataAuth,
+  body: BodyPutProduct
+): Promise<ResponsePostProduct> {
+  const { id, ...DataProduct } = body;
+
+  const response = await axios.put(`/product/update/${body.id}`, DataProduct, {
+    headers: { Authorization: `Bearer ${auth.token}` },
+  });
+
+  if (response.status !== 200) throw new Error(response.statusText);
+
+  return response.data as ResponsePostProduct;
+}
+
 export enum ResponseDeleteProduct {
   OK = 200,
   ERROR = 400,

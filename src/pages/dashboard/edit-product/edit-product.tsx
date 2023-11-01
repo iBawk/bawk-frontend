@@ -48,6 +48,7 @@ export default function PageEditProduct() {
   return (
     <main>
       <SectionEditProduct
+        id={id}
         productData={{
           category: { value: category, valid: false, error: false },
           description: { value: description, valid: false, error: false },

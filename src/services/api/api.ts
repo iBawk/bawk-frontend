@@ -10,6 +10,7 @@ import {
   deleteProduct,
   postProductImage,
   getProductImageURL,
+  putProduct,
 } from "./endpoints/products";
 
 export const axios = Axios.create({
@@ -33,6 +34,7 @@ const API = {
     postProduct,
     deleteProduct,
     postProductImage,
+    putProduct,
   },
 };
 
