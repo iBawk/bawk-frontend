@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import ElementPriceTag from "../price-tag/price-tag";
 
 export type DataElementProductCard = {
   title: string;
@@ -55,7 +56,7 @@ export default function ElementProductCard({
       <div className="ElementProductCard">
         <div className="header">
           <img className="img" src={img} alt="" />
-          <span className="priceTag">R$ {price}</span>
+          <ElementPriceTag>R$ {price}</ElementPriceTag>
         </div>
 
         <div className="body">

@@ -1,5 +1,5 @@
 import "./App.scss";
-import 'react-quill/dist/quill.snow.css';
+import "react-quill/dist/quill.snow.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import LayoutDashboard, {
   loaderLayoutDashboard,
@@ -35,6 +35,7 @@ import PageSettings, {
   loaderPageSettings,
 } from "./pages/dashboard/settings/page";
 import PageAddProduct from "./pages/dashboard/add-product/page";
+import PageViewProduct, { LoaderPageViewProduct } from "./pages/dashboard/view-product/page";
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
@@ -83,6 +84,11 @@ const router = createBrowserRouter([
       {
         path: "/painel/produtos/add-produto",
         element: <PageAddProduct />,
+      },
+      {
+        path: "/painel/produtos/visualizar/:id",
+        element: <PageViewProduct />,
+        loader: LoaderPageViewProduct,
       },
       {
         path: "/painel/marketplace",
