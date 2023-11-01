@@ -42,6 +42,7 @@ import PageEditProduct, {
   LoaderPageEditProduct,
 } from "./pages/dashboard/edit-product/edit-product";
 import PageProductOffers, { LoaderPageProductOffers } from "./pages/dashboard/product-offers/product-offers";
+import PageUserProfile from "./pages/dashboard/user-profile/page";
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
