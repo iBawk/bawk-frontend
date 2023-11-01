@@ -49,6 +49,7 @@ export default function PageProducts() {
               editLink: `/painel/produtos/editar/${id}`,
               price: "100,00",
               status: !!status,
+              offerLink: `/painel/produtos/ofertas/${id}`,
               onDelete: () => {
                 const auth = Auth.getAuth();
 

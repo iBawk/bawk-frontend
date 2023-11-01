@@ -2,7 +2,12 @@ import "./product-card.scss";
 import { useState } from "react";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+  DollarOutlined,
+} from "@ant-design/icons";
 import ElementPriceTag from "../price-tag/price-tag";
 
 export type DataElementProductCard = {
@@ -12,6 +17,7 @@ export type DataElementProductCard = {
   category: string;
   viewLink?: string;
   editLink?: string;
+  offerLink?: string;
   status: boolean;
   price: string;
   forSale?: boolean;
@@ -28,6 +34,7 @@ export default function ElementProductCard({
   onDelete,
   viewLink,
   editLink,
+  offerLink,
   price,
   category,
   status,
@@ -47,7 +54,14 @@ export default function ElementProductCard({
             >
               Não
             </Button>
-            <Button className="button" type="primary" onClick={onDelete}>
+            <Button
+              className="button"
+              type="primary"
+              onClick={() => {
+                setModalStatus(false);
+                if (onDelete) onDelete();
+              }}
+            >
               Sim
             </Button>
           </div>
@@ -89,6 +103,13 @@ export default function ElementProductCard({
             <Link to={viewLink} title={`Visualizar ${title}`}>
               <Button type="default" icon={<EyeOutlined />} size="small">
                 Visualizar
+              </Button>
+            </Link>
+          )}
+          {offerLink && (
+            <Link to={offerLink} title={`Ofertas ${title}`}>
+              <Button type="default" icon={<DollarOutlined />} size="small">
+                Ofertas
               </Button>
             </Link>
           )}

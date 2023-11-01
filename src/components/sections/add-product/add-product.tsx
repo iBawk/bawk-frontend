@@ -43,13 +43,15 @@ export default function SectionAddProduct() {
         sallerInEmail: productData.email.value,
         sallerInName: productData.salerName.value,
         sallerInPhone: productData.phone.value,
-        situation: productData.visibleForSale.value ? 2 : 1,
+        situation: productData.visibleForSale.value ? 1 : 1,
       })
       .then((response) => {
         if (productData.image.value)
           API.private
             .postProductImage(auth, response.id, productData.image.value)
-            .then(() => {})
+            .then(() => {
+              navigate("/painel/produtos");
+            })
             .catch((e) => {
               console.error(e);
             });

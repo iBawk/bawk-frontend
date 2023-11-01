@@ -144,26 +144,6 @@ export default function ElementProductForm({
                 onChange={onChangePhone}
               />
             </Form.Item>
-          </Col>
-          <Col span={6}>
-            <Form.Item label="Listado para venda" valuePropName="checked">
-              <Switch
-                checked={data.visibleForSale.value}
-                onChange={onChangeVisibleForSale}
-              />
-            </Form.Item>
-          </Col>
-          <Col span={6}>
-            <Form.Item label="Valor do produto" required>
-              <InputNumber
-                className="inputNumber"
-                required
-                value={data.price.value}
-                onChange={onChangePrice}
-              />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
             <Form.Item label="Categoria do produto" required>
               <Select value={data.category.value} onChange={onChangeCategory}>
                 <Select.Option value="demo">Test</Select.Option>
