@@ -38,6 +38,7 @@ export type DataElementProductForm = {
   data: DataProductForm;
   setData: (data: DataProductForm) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  imgPlaceHolder?: string;
 };
 
 export default function ElementProductForm({
@@ -45,6 +46,7 @@ export default function ElementProductForm({
   data,
   setData,
   onSubmit,
+  imgPlaceHolder,
 }: DataElementProductForm) {
   const onChangeImage = (value: File | null) => {
     data.image.value = value;
@@ -110,9 +112,10 @@ export default function ElementProductForm({
           <Col span={6}>
             <Form.Item label="Imagem do Produto" required>
               <ElementImageInput
-                required
+                required={!imgPlaceHolder}
                 onChange={onChangeImage}
                 value={data.image.value}
+                imgPlaceHolder={imgPlaceHolder}
               />
             </Form.Item>
           </Col>

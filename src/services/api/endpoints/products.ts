@@ -124,3 +124,6 @@ export async function postProductImage(
 
   return response.data;
 }
+
+export const getProductImageURL = (productId: string) =>
+  `http://127.0.0.1:3334/product/image/${productId}`;

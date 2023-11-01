@@ -9,10 +9,8 @@ import {
   postProduct,
   deleteProduct,
   postProductImage,
+  getProductImageURL,
 } from "./endpoints/products";
-
-const getProductImageURL = (productId: string) =>
-  `http://127.0.0.1:3334/product/image/${productId}`;
 
 export const axios = Axios.create({
   baseURL: "http://127.0.0.1:3334",

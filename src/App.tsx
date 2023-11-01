@@ -35,7 +35,12 @@ import PageSettings, {
   loaderPageSettings,
 } from "./pages/dashboard/settings/page";
 import PageAddProduct from "./pages/dashboard/add-product/page";
-import PageViewProduct, { LoaderPageViewProduct } from "./pages/dashboard/view-product/page";
+import PageViewProduct, {
+  LoaderPageViewProduct,
+} from "./pages/dashboard/view-product/page";
+import PageEditProduct, {
+  LoaderPageEditProduct,
+} from "./pages/dashboard/edit-product/edit-product";
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
@@ -89,6 +94,11 @@ const router = createBrowserRouter([
         path: "/painel/produtos/visualizar/:id",
         element: <PageViewProduct />,
         loader: LoaderPageViewProduct,
+      },
+      {
+        path: "/painel/produtos/editar/:id",
+        element: <PageEditProduct />,
+        loader: LoaderPageEditProduct,
       },
       {
         path: "/painel/marketplace",
