@@ -53,6 +53,8 @@ export default function SectionAddProduct() {
             .catch((e) => {
               console.error(e);
             });
+
+        navigate("/painel/produtos");
       })
       .catch((e) => {
         console.error(e);

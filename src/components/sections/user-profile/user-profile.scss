@@ -1,0 +1,105 @@
+@import "../../../mixins.scss";
+
+#SectionUserProfile {
+  @include SectionDefault;
+
+}
+
+.profileWrapper {
+  width: 50vw;
+  height: auto;
+
+  border: 1px solid #151515;
+  border-radius: 12px;
+
+  margin: auto;
+  margin-top: 200px;
+
+  padding: 18px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: start;
+
+  gap: 1vw;
+}
+
+.profileHeader {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+
+    gap: 10px;
+  }
+
+  .title {
+    border: 2px solid rgba(82, 82, 82, 0.575);
+
+    padding: 5px 20px;
+    border-radius: 4px;
+  }
+}
+
+.profileBody {
+  display: flex;
+
+  flex-direction: row;
+
+  gap: 5vw;
+
+  padding: 2vw;
+}
+
+.userInfos {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.upload {
+  width: auto;
+}
+
+.avatar-uploader {
+  width: 400px;
+}
+
+.campoWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.campos {
+  padding: 5px;
+
+  font-size: 14px;
+
+  border-radius: 4px;
+}
+
+.campos2 {
+  padding: 5px;
+
+  font-size: 18px;
+  font-weight: 400;
+
+  border-radius: 4px;
+
+  line-height: 0.2;
+}
+
+.status {
+  color: red;
+  background-color: rgb(255, 227, 227);
+  border-radius: 4px;
+  border: 1px solid red;
+
+  padding: 4px;
+}

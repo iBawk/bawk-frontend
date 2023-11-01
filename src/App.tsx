@@ -35,7 +35,10 @@ import PageSettings, {
   loaderPageSettings,
 } from "./pages/dashboard/settings/page";
 import PageAddProduct from "./pages/dashboard/add-product/page";
-import PageViewProduct, { LoaderPageViewProduct } from "./pages/dashboard/view-product/page";
+import PageViewProduct, {
+  LoaderPageViewProduct,
+} from "./pages/dashboard/view-product/page";
+import PageUserProfile from "./pages/dashboard/user-profile/page";
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
@@ -108,6 +111,11 @@ const router = createBrowserRouter([
       {
         path: "/painel/configuracoes",
         element: <PageSettings />,
+        loader: loaderPageSettings,
+      },
+      {
+        path: "/painel/perfil",
+        element: <PageUserProfile />,
         loader: loaderPageSettings,
       },
     ],
