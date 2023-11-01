@@ -12,6 +12,10 @@ import {
   getProductImageURL,
   putProduct,
 } from "./endpoints/products";
+import { postUserImage, getUserImage } from "./endpoints/user";
+
+const getUserImageURL = (userId: string) =>
+  `http://127.0.0.1:3334/user/image/${userId}`;
 
 export const axios = Axios.create({
   baseURL: "http://127.0.0.1:3334",
@@ -26,6 +30,7 @@ const API = {
     postUserRegister,
     postUserLogin,
     getProductImageURL,
+    getUserImageURL,
   },
   private: {
     getUserMe,
@@ -35,6 +40,8 @@ const API = {
     deleteProduct,
     postProductImage,
     putProduct,
+    postUserImage,
+    getUserImage,
   },
 };
 

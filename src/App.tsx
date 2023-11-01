@@ -126,6 +126,11 @@ const router = createBrowserRouter([
         element: <PageSettings />,
         loader: loaderPageSettings,
       },
+      {
+        path: "/painel/perfil",
+        element: <PageUserProfile />,
+        loader: loaderPageSettings,
+      },
     ],
   },
   {
