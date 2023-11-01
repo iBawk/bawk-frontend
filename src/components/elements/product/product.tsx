@@ -63,12 +63,12 @@ export default function ElementProduct(data: DataElementProduct) {
             ["Nome", sallerInName],
             ["Email", sallerInEmail],
             ["Telefone", sallerInPhone],
-          ].map(([subtitle, text]) => {
+          ].map(([subtitle, text], index) => {
             return (
-              <>
+              <div key={index}>
                 <h3 className="subTitle">{subtitle}</h3>
                 <p className="text">{text}</p>
-              </>
+              </div>
             );
           })}
         </Col>
