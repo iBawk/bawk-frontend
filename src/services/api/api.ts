@@ -10,7 +10,7 @@ import {
   deleteProduct,
   postProductImage,
 } from "./endpoints/products";
-import { postCheckout } from "./endpoints/checkout";
+import { getCheckout } from "./endpoints/checkout";
 
 
 export const axios = Axios.create({
@@ -34,7 +34,7 @@ const API = {
     postProduct,
     deleteProduct,
     postProductImage,
-    postCheckout,
+    getCheckout,
   },
 };
 
