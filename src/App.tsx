@@ -55,11 +55,6 @@ const menuOptions = [
     link: "minhas-compras",
     icon: <MdInventory2 />,
   },
-  {
-    title: "Configurações",
-    link: "configuracoes",
-    icon: <RiSettings4Fill />,
-  },
 ];
 
 const router = createBrowserRouter([
