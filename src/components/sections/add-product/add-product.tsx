@@ -18,10 +18,11 @@ export default function SectionAddProduct() {
     category: { ...initialValue },
     description: { ...initialValue },
     email: { ...initialValue },
-    image: { value: null, error: false, valid: false },
-    markdown: { value: "", error: false, valid: false },
+    image: { value: null, invalid: false, valid: false },
+    markdown: { value: "", invalid: false, valid: false },
     phone: { ...initialValue },
     salerName: { ...initialValue },
+    situation: 1,
   });
 
   const [submitStatus, setSubmitStatus] = useState<DataSubmitStatus>({
@@ -41,7 +42,6 @@ export default function SectionAddProduct() {
       return;
     }
 
-    
     const {
       category,
       description,
@@ -51,6 +51,7 @@ export default function SectionAddProduct() {
       name,
       phone,
       salerName,
+      situation,
     } = productData;
 
     const isValidForSend =
@@ -63,7 +64,7 @@ export default function SectionAddProduct() {
       salerName.valid;
 
     if (!isValidForSend) return;
-    
+
     setSubmitStatus({
       loading: true,
       ok: false,
@@ -81,7 +82,7 @@ export default function SectionAddProduct() {
         sallerInEmail: email.value,
         sallerInName: salerName.value,
         sallerInPhone: phone.value,
-        situation: 1,
+        situation: situation,
       })
       .then((response) => {
         if (productData.image.value)

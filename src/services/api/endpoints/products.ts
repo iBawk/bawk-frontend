@@ -12,7 +12,7 @@ export type ResponseGetProduct = {
   id: string;
   owner_id: string;
   description: string;
-  status: number;
+  situation: number;
   created_at: string;
 };
 
@@ -27,7 +27,6 @@ export async function getProduct(
   });
 
   if (response.status !== 200) throw new Error(response.statusText);
-
   return response.data as ResponseGetProduct;
 }
 
@@ -104,7 +103,7 @@ export async function putProduct(
 ): Promise<ResponsePostProduct> {
   const { id, ...DataProduct } = body;
 
-  const response = await axios.put(`/product/update/${body.id}`, DataProduct, {
+  const response = await axios.put(`/product/${body.id}`, DataProduct, {
     headers: { Authorization: `Bearer ${auth.token}` },
   });
 

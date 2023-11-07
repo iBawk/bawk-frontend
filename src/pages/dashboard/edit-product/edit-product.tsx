@@ -32,17 +32,14 @@ export default function PageEditProduct() {
 
   const {
     category,
-    created_at,
     description,
-    format,
     id,
     markdown,
     name,
-    owner_id,
     sallerInEmail,
     sallerInName,
     sallerInPhone,
-    status,
+    situation,
   } = productData;
 
   return (
@@ -50,16 +47,15 @@ export default function PageEditProduct() {
       <SectionEditProduct
         id={id}
         productData={{
-          category: { value: category, valid: false, error: false },
-          description: { value: description, valid: false, error: false },
-          email: { value: sallerInEmail, valid: false, error: false },
-          image: { value: null, valid: false, error: false },
-          markdown: { value: markdown, valid: false, error: false },
-          name: { value: name, valid: false, error: false },
-          phone: { value: sallerInPhone, valid: false, error: false },
-          price: { value: "100,00", valid: false, error: false },
-          salerName: { value: sallerInName, valid: false, error: false },
-          visibleForSale: { value: !!status, valid: false, error: false },
+          category: { value: category, valid: true, invalid: false },
+          description: { value: description, valid: true, invalid: false },
+          email: { value: sallerInEmail, valid: true, invalid: false },
+          image: { value: null, valid: true, invalid: false },
+          markdown: { value: markdown, valid: true, invalid: false },
+          name: { value: name, valid: true, invalid: false },
+          phone: { value: sallerInPhone, valid: true, invalid: false },
+          salerName: { value: sallerInName, valid: true, invalid: false },
+          situation: situation,
         }}
         imgPlaceHolder={productImage}
       />

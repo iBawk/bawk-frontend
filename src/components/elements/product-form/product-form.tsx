@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent } from "react";
 import "./product-form.scss";
-import { Form, Row, Col, Button, Select, Alert } from "antd";
+import { Form, Row, Col, Button, Select, Alert, Switch } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import ReactQuill from "react-quill";
 import ElementImageInput from "../image-input/image-input";
@@ -12,7 +12,7 @@ import Mask from "../../../helpers/mask/maks";
 
 export type FildForm<T> = {
   value: T;
-  error: boolean;
+  invalid: boolean;
   valid: boolean;
 };
 
@@ -25,6 +25,7 @@ export type DataProductForm = {
   description: FildInputText;
   markdown: FildForm<string>;
   image: FildForm<File | null>;
+  situation: number;
 };
 
 export type DataSubmitStatus = {
@@ -52,7 +53,7 @@ export default function ElementProductForm({
   submitStatus,
 }: DataElementProductForm) {
   const onChangeImage = (value: File | null) => {
-    data.image = { value: value, valid: !!value, error: false };
+    data.image = { value: value, valid: !!value, invalid: false };
     setData({ ...data });
   };
 
@@ -91,6 +92,15 @@ export default function ElementProductForm({
                 onChange={onChangeImage}
                 value={data.image.value}
                 imgPlaceHolder={imgPlaceHolder}
+              />
+            </Form.Item>
+            <Form.Item label="Produto Ativo ?">
+              <Switch
+                checked={data.situation === 1}
+                onChange={(newValue) => {
+                  data.situation = newValue ? 1 : 2;
+                  setData({ ...data });
+                }}
               />
             </Form.Item>
           </Col>
