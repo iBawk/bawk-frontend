@@ -17,6 +17,9 @@ import type { RcFile } from "antd/es/upload/interface";
 
 import { Typography } from "antd";
 import { FaPencilAlt } from "react-icons/fa";
+import { FiUser } from "react-icons/fi";
+import { MdVerified } from "react-icons/md";
+import { GoUnverified } from "react-icons/go";
 
 const { Text } = Typography;
 
@@ -51,13 +54,9 @@ export default function SectionUserProfile() {
       .getUserMe(auth.token, auth.tokenType)
       .then((response) => {
         setUserData(response);
+        console.log(response);
 
         const userPhoto = API.public.getUserImageURL(response.user.id);
-        console.log(userPhoto);
-
-        const test = API.private.getUserImage(auth, auth.tokenType);
-        console.log("teste", test);
-
         setImageUrl(userPhoto);
       })
       .catch((e) => {
@@ -92,24 +91,34 @@ export default function SectionUserProfile() {
   );
 
   return (
-    <section id="SectionUserPofile">
+    <section id="SectionUserProfile">
       <StructContainer>
         <div className="profileWrapper">
           <div className="profileHeader">
-            <Text className="title">Perfil</Text>
+            <div className="left">
+              <div className="userIcon">
+                <FiUser size={16} />
+              </div>
+              <Text className="title">Perfil</Text>
+            </div>
 
             <div className="buttons">
-              <Button>
-                <EyeOutlined />
-              </Button>
-              <Button>
-                <FaPencilAlt />
+              <Button
+                icon={<EyeOutlined />}
+                ghost
+                style={{ color: "#02A0FC", borderColor: "#02A0FC" }}
+              />
+              <Button
+                icon={<FaPencilAlt />}
+                ghost
+                style={{ color: "#02A0FC", borderColor: "#02A0FC" }}
+              >
                 Editar
               </Button>
             </div>
           </div>
           <div className="profileBody">
-            <div className="upload">
+            <div className="userImage">
               <Upload
                 name="avatar"
                 listType="picture-circle"
@@ -123,38 +132,55 @@ export default function SectionUserProfile() {
                 }}
               >
                 {imageUrl ? (
-                  <Avatar src={imageUrl} size={100} icon={<UserOutlined />} />
+                  <Avatar src={imageUrl} size={130} icon={<UserOutlined />} />
                 ) : (
                   uploadButton
                 )}
               </Upload>
             </div>
-            <div className="userInfos">
-              <div className="campoWrapper">
-                <Text className="campos">Nome</Text>
-                <Text className="campos2">{userData?.user.name}</Text>
+            <div className="teste">
+              <div className="userInfos">
+                <div className="campoWrapper">
+                  <Text className="infoTilte">Nome</Text>
+                  <Text className="infoDesc">{userData?.user.name}</Text>
+                </div>
+                <div className="campoWrapper">
+                  <Text className="infoTilte">Status</Text>
+                  <Text
+                    className={`status ${
+                      userData?.user.isUpdated ? "verified" : "unverified"
+                    }`}
+                  >
+                    {userData?.user.isUpdated
+                      ? [<MdVerified />]
+                      : [<GoUnverified />]}
+                    {userData?.user.isUpdated ? "ATUALIZADO" : " DESATUALIZADO"}
+                  </Text>
+                </div>
               </div>
-              <div className="campoWrapper">
-                <Text className="campos">Documento</Text>
-                <Text className="campos2">501.646.970-98</Text>
+              <div className="userInfos">
+                <div className="campoWrapper">
+                  <Text className="infoTilte">Documento</Text>
+                  <Text className="infoDesc">
+                    {userData?.user.identification.document}
+                  </Text>
+                </div>
+                <div className="campoWrapper">
+                  <Text className="infoTilte">Telefone</Text>
+                  <Text className="infoDesc">{userData?.user.phone}</Text>
+                </div>
               </div>
-              <div className="campoWrapper">
-                <Text className="campos">Telefone</Text>
-                <Text className="campos2">(84) 2583-5225</Text>
-              </div>
-            </div>
-            <div className="userInfos">
-              <div className="campoWrapper">
-                <Text className="campos">Status</Text>
-                <Text className="status">DESATUALIZADO</Text>
-              </div>
-              <div className="campoWrapper">
-                <Text className="campos">Email</Text>
-                <Text className="campos2">{userData?.user.email}</Text>
-              </div>
-              <div className="campoWrapper">
-                <Text className="campos">Idioma</Text>
-                <Text className="campos2">Portugues</Text>
+              <div className="userInfos">
+                <div className="campoWrapper">
+                  <Text className="infoTilte">Email</Text>
+                  <Text className="infoDesc">{userData?.user.email}</Text>
+                </div>
+                <div className="campoWrapper">
+                  <Text className="infoTilte">Nacionalidade</Text>
+                  <Text className="infoDesc">
+                    {userData?.user.identification.nationality}
+                  </Text>
+                </div>
               </div>
             </div>
           </div>
