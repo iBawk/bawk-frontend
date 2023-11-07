@@ -57,17 +57,17 @@ export default function LayoutLandpage() {
         </div>
         <main>
           <section className="aboutUs" id="AboutUs">
-            <h2>About Us</h2>
-            <p>
+            <h2 className="text">About Us</h2>
+            <p className="text">
               We are a dedicated team that aims to provide the best solutions for our customers. Our mission is to exceed your expectations.
             </p>
           </section>
           <section className="services" id="Services">
-            <h2>Our Services</h2>
+            <h2 className="text">Our Services</h2>
             <ul>
-              <li>Service 1</li>
-              <li>Service 2</li>
-              <li>Service 3</li>
+              <li className="text">Service 1</li>
+              <li className="text">Service 2</li>
+              <li className="text">Service 3</li>
             </ul>
           </section>
         </main>
