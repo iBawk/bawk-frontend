@@ -41,6 +41,29 @@ export default function SectionAddProduct() {
       return;
     }
 
+    
+    const {
+      category,
+      description,
+      email,
+      image,
+      markdown,
+      name,
+      phone,
+      salerName,
+    } = productData;
+
+    const isValidForSend =
+      category.valid &&
+      description.valid &&
+      email.valid &&
+      image.valid &&
+      name.valid &&
+      phone.valid &&
+      salerName.valid;
+
+    if (!isValidForSend) return;
+    
     setSubmitStatus({
       loading: true,
       ok: false,
@@ -50,14 +73,14 @@ export default function SectionAddProduct() {
 
     API.private
       .postProduct(auth, {
-        category: productData.category.value,
-        description: productData.description.value,
+        category: category.value,
+        description: description.value,
         format: "",
-        markdown: productData.markdown.value,
-        name: productData.name.value,
-        sallerInEmail: productData.email.value,
-        sallerInName: productData.salerName.value,
-        sallerInPhone: productData.phone.value,
+        markdown: markdown.value,
+        name: name.value,
+        sallerInEmail: email.value,
+        sallerInName: salerName.value,
+        sallerInPhone: phone.value,
         situation: 1,
       })
       .then((response) => {

@@ -52,12 +52,12 @@ export default function ElementProductForm({
   submitStatus,
 }: DataElementProductForm) {
   const onChangeImage = (value: File | null) => {
-    data.image.value = value;
+    data.image = { value: value, valid: !!value, error: false };
     setData({ ...data });
   };
 
   const onChangeCategory = (event: string) => {
-    data.category.value = event;
+    data.category = { value: event, invalid: false, valid: true };
     setData({ ...data });
   };
 
