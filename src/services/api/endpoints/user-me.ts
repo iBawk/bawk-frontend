@@ -23,7 +23,7 @@ export type ResponseGetUserMe = {
       nationality: string;
       document: string;
       id: string;
-      birthDate: string;
+      birthDate: Date;
     };
   };
 };
@@ -32,6 +32,10 @@ export async function getUserMe(authToken: string, authTokenType: string) {
   const response = await axios.get("/user/me", {
     headers: { Authorization: `${authTokenType} ${authToken}` },
   });
+
+  if (response.status !== 200) {
+    throw new Error(response.statusText);
+  }
 
   return response.data as ResponseGetUserMe;
 }

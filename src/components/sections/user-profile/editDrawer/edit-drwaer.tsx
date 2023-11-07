@@ -1,5 +1,15 @@
 import type { DrawerProps } from "antd";
-import { Avatar, Button, Drawer, Form, Input, Space } from "antd";
+import {
+  Avatar,
+  Button,
+  Col,
+  Drawer,
+  Form,
+  Input,
+  Row,
+  Select,
+  Space,
+} from "antd";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -18,17 +28,18 @@ interface EditUserDrawerProps extends DrawerProps {
 }
 
 export type EditUserFormValues = {
-  name: string;
-  nationality: string;
-  document: string;
-  birthDate: string;
-  street: string;
-  number: string;
-  city: string;
-  country: string;
-  zipCode: string;
-  complement: string;
-  state: string;
+  name: string | undefined;
+  nationality: string | undefined;
+  document: string | undefined;
+  birthDate: string | undefined;
+  street: string | undefined;
+  number: string | undefined;
+  city: string | undefined;
+  country: string | undefined;
+  zipCode: string | undefined;
+  complement: string | undefined;
+  state: string | undefined;
+  language: string | undefined;
 };
 
 const scheme = Yup.object().shape({
@@ -57,6 +68,7 @@ export default function EditUserDrawer({
     initialValues,
     validationSchema: scheme,
     onSubmit,
+    enableReinitialize: true,
   });
 
   console.log(initialValues);
@@ -125,83 +137,154 @@ export default function EditUserDrawer({
         <div className="avatar">
           <Avatar src={imageUrl} size={100} icon={<UserOutlined />} />
         </div>
-        <Form onFinish={formik.handleSubmit}>
+        <Form onFinish={formik.handleSubmit} className="formikkk">
           <p className="category">Identificação</p>
-          <Form.Item
-            hasFeedback
-            validateStatus={
-              formik.touched.name && formik.errors.name ? "error" : ""
-            }
-            help={formik.errors.name}
-          >
-            <label htmlFor="name" className="labels">
-              Nome
-            </label>
-            <Input
-              size="large"
-              name="name"
-              placeholder="Seu nome completo"
-              onChange={formik.handleChange}
-              value={formik.values.name}
-            />
-          </Form.Item>
-          <Form.Item
-            hasFeedback
-            validateStatus={
-              formik.touched.nationality && formik.errors.nationality
-                ? "error"
-                : ""
-            }
-            help={formik.errors.nationality}
-          >
-            <label htmlFor="nationality" className="labels">
-              Nacionalidade
-            </label>
-            <Input
-              size="large"
-              name="nationality"
-              placeholder="Nacionalidade"
-              onChange={formik.handleChange}
-              value={formik.values.nationality}
-            />
-          </Form.Item>
-          <Form.Item
-            hasFeedback
-            validateStatus={
-              formik.touched.document && formik.errors.document ? "error" : ""
-            }
-            help={formik.errors.document}
-          >
-            <label htmlFor="document" className="labels">
-              Documento CPF
-            </label>
-            <Input
-              size="large"
-              name="document"
-              placeholder="Documento CPF"
-              onChange={formik.handleChange}
-              value={formik.values.document}
-            />
-          </Form.Item>
-          <Form.Item
-            hasFeedback
-            validateStatus={
-              formik.touched.birthDate && formik.errors.birthDate ? "error" : ""
-            }
-            help={formik.errors.birthDate}
-          >
-            <label htmlFor="birthDate" className="labels">
-              Data de Nascimento
-            </label>
-            <Input
-              size="large"
-              name="bitrhDate"
-              placeholder="Data de Nascimento"
-              onChange={formik.handleChange}
-              value={formik.values.birthDate}
-            />
-          </Form.Item>
+          <Row>
+            <Col span={24}>
+              <Form.Item
+                hasFeedback
+                validateStatus={
+                  formik.touched.name && formik.errors.name ? "error" : ""
+                }
+                help={formik.errors.name}
+              >
+                <label htmlFor="name" className="labels">
+                  Nome
+                </label>
+                <Input
+                  size="large"
+                  name="name"
+                  placeholder="Seu nome completo"
+                  onChange={formik.handleChange}
+                  value={formik.values.name}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={[16, 8]}>
+            <Col span={12}>
+              <Form.Item
+                hasFeedback
+                validateStatus={
+                  formik.touched.nationality && formik.errors.nationality
+                    ? "error"
+                    : ""
+                }
+                help={formik.errors.nationality}
+              >
+                <label htmlFor="nationality" className="labels">
+                  Nacionalidade
+                </label>
+                <Select
+                  size="large"
+                  onChange={formik.handleChange}
+                  value={formik.values.nationality}
+                  options={[{ value: "brazil", label: "Brasileiro" }]}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                hasFeedback
+                validateStatus={
+                  formik.touched.nationality && formik.errors.nationality
+                    ? "error"
+                    : ""
+                }
+                help={formik.errors.nationality}
+              >
+                <label htmlFor="nationality" className="labels">
+                  Idioma
+                </label>
+                <Select
+                  size="large"
+                  onChange={formik.handleChange}
+                  value={formik.values.language}
+                  options={[{ value: "portuguese", label: "Portugues" }]}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={[16, 8]}>
+            <Col span={12}>
+              <Form.Item>
+                <label htmlFor="type" className="labels">
+                  Tipo de Documento
+                </label>
+                <Select
+                  size="large"
+                  value={"cpf"}
+                  options={[{ value: "cpf", label: "CPF" }]}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                hasFeedback
+                validateStatus={
+                  formik.touched.document && formik.errors.document
+                    ? "error"
+                    : ""
+                }
+                help={formik.errors.document}
+              >
+                <label htmlFor="document" className="labels">
+                  Nº do documento
+                </label>
+                <Input
+                  size="large"
+                  onChange={formik.handleChange}
+                  value={formik.values.document}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col span={24}>
+              <Form.Item
+                hasFeedback
+                validateStatus={
+                  formik.touched.nationality && formik.errors.nationality
+                    ? "error"
+                    : ""
+                }
+                help={formik.errors.nationality}
+              >
+                <label htmlFor="birtDate" className="labels">
+                  Data de nascimento
+                </label>
+                <Input
+                  name="birthDate"
+                  size="large"
+                  onChange={(event) => {
+                    let { value } = event.target;
+
+                    value = value.replace(/\D/g, "");
+
+                    if (value.length >= 2) {
+                      value = `${value.slice(0, 2)}/${value.slice(2)}`;
+                    }
+                    if (value.length >= 5) {
+                      value = `${value.slice(0, 5)}/${value.slice(5)}`;
+                    }
+
+                    if (value.length > 10) {
+                      value = value.slice(0, 10);
+                    }
+
+                    formik.setFieldValue("birthDate", value);
+                  }}
+                  value={formik.values.birthDate}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
           <p className="category">Endereço</p>
+
           <Form.Item
             hasFeedback
             validateStatus={

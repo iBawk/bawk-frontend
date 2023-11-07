@@ -57,7 +57,6 @@ export default function SectionUserProfile() {
       .getUserMe(auth.token, auth.tokenType)
       .then((response) => {
         setUserData(response);
-        console.log(response);
 
         const userPhoto = API.public.getUserImageURL(response.user.id);
         setImageUrl(userPhoto);
@@ -68,17 +67,18 @@ export default function SectionUserProfile() {
   }, []);
 
   const editInitiaiValues = {
-    name: userData?.user.name,
-    nationality: userData?.user.identification.nationality,
-    document: userData?.user.identification.document,
-    birthDate: userData?.user.identification.birthDate,
-    street: userData?.user.address.street,
-    number: userData?.user.address.number,
-    city: userData?.user.address.city,
-    country: userData?.user.address.country,
-    zipCode: userData?.user.address.zipCode,
-    complement: userData?.user.address.complement,
-    state: userData?.user.address.state,
+    name: userData?.user?.name,
+    nationality: userData?.user?.identification.nationality,
+    document: userData?.user?.identification.document,
+    birthDate: userData?.user?.identification.birthDate,
+    street: userData?.user?.address.street,
+    number: userData?.user?.address.number,
+    city: userData?.user?.address.city,
+    country: userData?.user?.address.country,
+    zipCode: userData?.user?.address.zipCode,
+    complement: userData?.user?.address.complement,
+    state: userData?.user?.address.state,
+    language: "portuguese",
   };
 
   const onChangeImage = (value: RcFile) => {
