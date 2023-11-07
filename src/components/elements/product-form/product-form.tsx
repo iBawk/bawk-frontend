@@ -1,18 +1,14 @@
 import { ChangeEvent, FormEvent } from "react";
 import "./product-form.scss";
-import {
-  Form,
-  Row,
-  Col,
-  Button,
-  Input,
-  InputNumber,
-  Select,
-  Switch,
-} from "antd";
+import { Form, Row, Col, Button, Select, Alert } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import ReactQuill from "react-quill";
 import ElementImageInput from "../image-input/image-input";
+import ElementInputText, {
+  FildInputText,
+} from "../form-input-text/form-input-text";
+import Validation from "../../../helpers/validation/validation";
+import Mask from "../../../helpers/mask/maks";
 
 export type FildForm<T> = {
   value: T;
@@ -21,16 +17,21 @@ export type FildForm<T> = {
 };
 
 export type DataProductForm = {
-  name: FildForm<string>;
-  salerName: FildForm<string>;
-  email: FildForm<string>;
-  phone: FildForm<string>;
-  price: FildForm<string>;
-  category: FildForm<string>;
-  visibleForSale: FildForm<boolean>;
-  description: FildForm<string>;
+  name: FildInputText;
+  salerName: FildInputText;
+  email: FildInputText;
+  phone: FildInputText;
+  category: FildInputText;
+  description: FildInputText;
   markdown: FildForm<string>;
   image: FildForm<File | null>;
+};
+
+export type DataSubmitStatus = {
+  send: boolean;
+  ok: boolean;
+  loading: boolean;
+  text: string;
 };
 
 export type DataElementProductForm = {
@@ -39,6 +40,7 @@ export type DataElementProductForm = {
   setData: (data: DataProductForm) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   imgPlaceHolder?: string;
+  submitStatus?: DataSubmitStatus;
 };
 
 export default function ElementProductForm({
@@ -47,43 +49,10 @@ export default function ElementProductForm({
   setData,
   onSubmit,
   imgPlaceHolder,
+  submitStatus,
 }: DataElementProductForm) {
   const onChangeImage = (value: File | null) => {
     data.image.value = value;
-    setData({ ...data });
-  };
-
-  const onChangeName = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    data.name.value = value;
-    setData({ ...data });
-  };
-
-  const onChangeSalerName = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    data.salerName.value = value;
-    setData({ ...data });
-  };
-
-  const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    data.email.value = value;
-    setData({ ...data });
-  };
-
-  const onChangePhone = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    data.phone.value = value;
-    setData({ ...data });
-  };
-
-  const onChangeVisibleForSale = (event: boolean) => {
-    data.visibleForSale.value = event;
-    setData({ ...data });
-  };
-
-  const onChangePrice = (event: string | null) => {
-    data.price.value = event ?? "";
     setData({ ...data });
   };
 
@@ -93,8 +62,14 @@ export default function ElementProductForm({
   };
 
   const onChangeDescription = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = event.target;
-    data.description.value = value;
+    const newValue = event.target.value;
+
+    data.description = {
+      value: newValue,
+      valid: newValue.length > 0,
+      invalid: false,
+    };
+
     setData({ ...data });
   };
 
@@ -120,30 +95,49 @@ export default function ElementProductForm({
             </Form.Item>
           </Col>
           <Col span={18}>
-            <Form.Item label="Nome do produto" required>
-              <Input required value={data.name.value} onChange={onChangeName} />
-            </Form.Item>
-            <Form.Item label="Nome do vendedor" required>
-              <Input
-                required
-                value={data.salerName.value}
-                onChange={onChangeSalerName}
-              />
-            </Form.Item>
-            <Form.Item label="Email" required>
-              <Input
-                required
-                value={data.email.value}
-                onChange={onChangeEmail}
-              />
-            </Form.Item>
-            <Form.Item label="Telefone" required>
-              <Input
-                required
-                value={data.phone.value}
-                onChange={onChangePhone}
-              />
-            </Form.Item>
+            <ElementInputText
+              required
+              label="Nome do Produto"
+              min={4}
+              value={data.name}
+              setValue={(newValue) => {
+                data.name = newValue;
+                setData({ ...data });
+              }}
+            />
+            <ElementInputText
+              required
+              label="Nome do Vendedor"
+              min={4}
+              value={data.salerName}
+              setValue={(newValue) => {
+                data.salerName = newValue;
+                setData({ ...data });
+              }}
+            />
+            <ElementInputText
+              required
+              label="Email"
+              value={data.email}
+              setValue={(newValue) => {
+                data.email = newValue;
+                setData({ ...data });
+              }}
+              isValid={Validation.isEmailValid}
+              isInvalid={Validation.isEmailInvalid}
+            />
+            <ElementInputText
+              required
+              label="Telefone"
+              value={data.phone}
+              setValue={(newValue) => {
+                data.phone = newValue;
+                setData({ ...data });
+              }}
+              isValid={Validation.isPhoneNumberValid}
+              isInvalid={Validation.isPasswordInvalid}
+              masked={Mask.phoneNumberMask}
+            />
             <Form.Item label="Categoria do produto" required>
               <Select value={data.category.value} onChange={onChangeCategory}>
                 <Select.Option value="demo">Test</Select.Option>
@@ -164,11 +158,39 @@ export default function ElementProductForm({
                 className="quill"
                 value={data.markdown.value}
                 onChange={onChangeMarkdown}
+                modules={{
+                  toolbar: [
+                    ["bold", "italic", "underline", "strike"],
+                    ["blockquote", "code-block"],
+                    ["link", "image"],
+                    [{ list: "ordered" }, { list: "bullet" }],
+                    [{ script: "sub" }, { script: "super" }],
+                    [{ indent: "-1" }, { indent: "+1" }],
+                    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                    [{ color: [] }, { background: [] }],
+                    [{ font: [] }],
+                    [{ align: [] }],
+                    ["clean"],
+                  ],
+                  clipboard: {
+                    matchVisual: false,
+                  },
+                }}
               />
             </Form.Item>
           </Col>
           <Col className="containerButton" span={24}>
-            <Button htmlType="submit" type="primary">
+            {submitStatus?.send && (
+              <Alert
+                type={submitStatus?.ok ? "success" : "error"}
+                message={submitStatus?.text}
+              />
+            )}
+            <Button
+              htmlType="submit"
+              type="primary"
+              loading={submitStatus?.loading}
+            >
               Enviar
             </Button>
           </Col>

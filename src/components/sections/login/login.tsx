@@ -2,8 +2,9 @@ import "./login.scss";
 import React, { ChangeEvent, useState } from "react";
 import { Button } from "antd";
 import {
-  emailIsValid,
-  passwordIsMinimumValid,
+  isEmailInvalid,
+  isEmailValid,
+  isPasswordMinimumValid,
 } from "../../../helpers/validation/validation";
 import ElementFormInput from "../../elements/form-input/form-input";
 import { Link } from "react-router-dom";
@@ -46,7 +47,7 @@ export default function SectionLogin(data: DataSectionLogin) {
 
     forms.email = {
       value: email,
-      valid: !!email && emailIsValid(email),
+      valid: !!email && isEmailValid(email),
       invalid: false,
     };
     setForms({ ...forms });
@@ -68,8 +69,8 @@ export default function SectionLogin(data: DataSectionLogin) {
 
     const { email, password } = forms;
 
-    email.invalid = !emailIsValid(email.value);
-    password.invalid = !passwordIsMinimumValid(password.value);
+    email.invalid = isEmailInvalid(email.value);
+    password.invalid = !isPasswordMinimumValid(password.value);
 
     if (email.invalid || password.invalid) {
       setForms({ email, password });

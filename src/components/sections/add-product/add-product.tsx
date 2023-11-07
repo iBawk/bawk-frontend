@@ -1,6 +1,7 @@
 import "./add-product.scss";
 import ElementProductForm, {
   DataProductForm,
+  DataSubmitStatus,
 } from "../../elements/product-form/product-form";
 import { FormEvent, useState } from "react";
 import API from "../../../services/api/api";
@@ -9,18 +10,25 @@ import Auth from "../../../services/auth/auth";
 import StructContainer from "../../structs/container/container";
 
 export default function SectionAddProduct() {
+  const initialValue = { value: "", valid: false, invalid: false };
+
   const navigate = useNavigate();
   const [productData, setProductData] = useState<DataProductForm>({
-    name: { value: "", error: false, valid: false },
-    category: { value: "", error: false, valid: false },
-    description: { value: "", error: false, valid: false },
-    email: { value: "", error: false, valid: false },
+    name: { ...initialValue },
+    category: { ...initialValue },
+    description: { ...initialValue },
+    email: { ...initialValue },
     image: { value: null, error: false, valid: false },
     markdown: { value: "", error: false, valid: false },
-    phone: { value: "", error: false, valid: false },
-    price: { value: "", error: false, valid: false },
-    salerName: { value: "", error: false, valid: false },
-    visibleForSale: { value: true, error: false, valid: false },
+    phone: { ...initialValue },
+    salerName: { ...initialValue },
+  });
+
+  const [submitStatus, setSubmitStatus] = useState<DataSubmitStatus>({
+    loading: false,
+    ok: false,
+    send: false,
+    text: "",
   });
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -33,6 +41,13 @@ export default function SectionAddProduct() {
       return;
     }
 
+    setSubmitStatus({
+      loading: true,
+      ok: false,
+      send: false,
+      text: "",
+    });
+
     API.private
       .postProduct(auth, {
         category: productData.category.value,
@@ -43,23 +58,39 @@ export default function SectionAddProduct() {
         sallerInEmail: productData.email.value,
         sallerInName: productData.salerName.value,
         sallerInPhone: productData.phone.value,
-        situation: productData.visibleForSale.value ? 1 : 1,
+        situation: 1,
       })
       .then((response) => {
         if (productData.image.value)
           API.private
             .postProductImage(auth, response.id, productData.image.value)
             .then(() => {
+              setSubmitStatus({
+                loading: false,
+                ok: true,
+                send: true,
+                text: "Produto cadastrado com sucesso !",
+              });
               navigate("/painel/produtos");
             })
             .catch((e) => {
               console.error(e);
+              setSubmitStatus({
+                loading: false,
+                ok: false,
+                send: true,
+                text: "Falha ao cadastrar imagem do produto !",
+              });
             });
-
-        navigate("/painel/produtos");
       })
       .catch((e) => {
         console.error(e);
+        setSubmitStatus({
+          loading: false,
+          ok: false,
+          send: true,
+          text: "Falha ao cadastrar produto !",
+        });
       });
   };
 
@@ -69,6 +100,7 @@ export default function SectionAddProduct() {
         <ElementProductForm
           data={productData}
           onSubmit={onSubmit}
+          submitStatus={submitStatus}
           setData={setProductData}
           title="Adicionar novo produto"
         />
