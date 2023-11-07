@@ -19,7 +19,14 @@ export default function SectionEditProduct(data: DataSectionEditProduct) {
   const { productData, imgPlaceHolder, id } = data;
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState<DataProductForm>(productData);
+  const [formData, setFormData] = useState<{
+    edit: boolean;
+    data: DataProductForm;
+  }>({
+    edit: false,
+    data: productData,
+  });
+
   const [submitStatus, setSubmitStatus] = useState<DataSubmitStatus>({
     loading: false,
     ok: false,
@@ -47,10 +54,11 @@ export default function SectionEditProduct(data: DataSectionEditProduct) {
       phone,
       salerName,
       situation,
-    } = formData;
+    } = formData.data;
 
     const imageUpdate = image.value !== null;
     const validToSend =
+      formData.edit &&
       category.valid &&
       description.valid &&
       email.valid &&
@@ -67,7 +75,15 @@ export default function SectionEditProduct(data: DataSectionEditProduct) {
         text: "",
       });
 
-    if (imageUpdate) API.private;
+    if (imageUpdate)
+      API.private.postProductImage(auth, id, image.value!).then(() => {
+        setSubmitStatus({
+          send: true,
+          loading: false,
+          ok: true,
+          text: "Sucesso ao editar produto !",
+        });
+      });
 
     if (validToSend)
       API.private
@@ -107,8 +123,10 @@ export default function SectionEditProduct(data: DataSectionEditProduct) {
       <StructContainer>
         <ElementProductForm
           title="Editar Produto"
-          data={formData}
-          setData={setFormData}
+          data={formData.data}
+          setData={(newData) => {
+            setFormData({ edit: true, data: { ...newData } });
+          }}
           onSubmit={onSubmit}
           submitStatus={submitStatus}
           imgPlaceHolder={imgPlaceHolder}
