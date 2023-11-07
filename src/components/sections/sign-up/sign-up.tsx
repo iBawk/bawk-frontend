@@ -4,10 +4,10 @@ import { Button } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { phoneNumberMask } from "../../../helpers/mask/maks";
 import {
-  nameIsMinimumValid,
-  emailIsValid,
-  phoneNumberIsValid,
-  passwordIsValid,
+  isNameMinimumValid,
+  isEmailValid,
+  isPhoneNumberValid,
+  isPasswordValid,
 } from "../../../helpers/validation/validation";
 import ElementFormInput from "../../elements/form-input/form-input";
 import API from "../../../services/api/api";
@@ -45,10 +45,10 @@ export default function SectionSignUp(data: DataSectionSignUp) {
 
     const { name, email, phoneNumber, password, confirmPassword } = form;
 
-    name.valid = nameIsMinimumValid(name.value);
-    email.valid = emailIsValid(email.value);
-    phoneNumber.valid = phoneNumberIsValid(phoneNumber.value);
-    password.valid = passwordIsValid(password.value);
+    name.valid = isNameMinimumValid(name.value);
+    email.valid = isEmailValid(email.value);
+    phoneNumber.valid = isPhoneNumberValid(phoneNumber.value);
+    password.valid = isPasswordValid(password.value);
     confirmPassword.valid = password.value === confirmPassword.value;
 
     const valid =
@@ -59,10 +59,10 @@ export default function SectionSignUp(data: DataSectionSignUp) {
       confirmPassword.valid;
 
     if (!valid) {
-      name.invalid = !nameIsMinimumValid(name.value);
-      email.invalid = !emailIsValid(email.value);
-      phoneNumber.invalid = !phoneNumberIsValid(phoneNumber.value);
-      password.invalid = !passwordIsValid(password.value);
+      name.invalid = !isNameMinimumValid(name.value);
+      email.invalid = !isEmailValid(email.value);
+      phoneNumber.invalid = !isPhoneNumberValid(phoneNumber.value);
+      password.invalid = !isPasswordValid(password.value);
       confirmPassword.invalid = password.value !== confirmPassword.value;
 
       setForm({ name, email, phoneNumber, password, confirmPassword });
@@ -89,8 +89,8 @@ export default function SectionSignUp(data: DataSectionSignUp) {
 
     form.name = {
       value: newValue,
-      valid: !!newValue && nameIsMinimumValid(newValue),
-      invalid: !!newValue && !nameIsMinimumValid(newValue),
+      valid: !!newValue && isNameMinimumValid(newValue),
+      invalid: !!newValue && !isNameMinimumValid(newValue),
     };
 
     setForm({ ...form });
@@ -101,8 +101,8 @@ export default function SectionSignUp(data: DataSectionSignUp) {
 
     form.email = {
       value: newValue,
-      valid: !!newValue && emailIsValid(newValue),
-      invalid: !!newValue && !emailIsValid(newValue),
+      valid: !!newValue && isEmailValid(newValue),
+      invalid: !!newValue && !isEmailValid(newValue),
     };
 
     setForm({ ...form });
@@ -113,8 +113,8 @@ export default function SectionSignUp(data: DataSectionSignUp) {
 
     form.phoneNumber = {
       value: newValue,
-      valid: !!newValue && phoneNumberIsValid(newValue),
-      invalid: !!newValue && !phoneNumberIsValid(newValue),
+      valid: !!newValue && isPhoneNumberValid(newValue),
+      invalid: !!newValue && !isPhoneNumberValid(newValue),
     };
 
     setForm({ ...form });
@@ -127,8 +127,8 @@ export default function SectionSignUp(data: DataSectionSignUp) {
 
     form.password = {
       value: newValue,
-      valid: !!newValue && passwordIsValid(newValue),
-      invalid: !!newValue && !passwordIsValid(newValue),
+      valid: !!newValue && isPasswordValid(newValue),
+      invalid: !!newValue && !isPasswordValid(newValue),
     };
 
     setForm({ ...form });
