@@ -12,18 +12,20 @@ export type ResponseGetUserMe = {
     address: {
       street: string;
       id: string;
-      number: number;
+      number: string;
       city: string;
       country: string;
       zipCode: string;
       complement: string;
       state: string;
+      district: string;
     };
     identification: {
       nationality: string;
       document: string;
       id: string;
       birthDate: string;
+      language: string;
     };
   };
 };
