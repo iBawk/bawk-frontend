@@ -1,20 +1,18 @@
 import { axios } from "../api";
 
 export type ResponseGetUserMe = {
-  loggedUserInfo: {
-    user: {
-      id: string;
-      name: string;
-      email: string;
-      phone: string;
-      photo: string;
-      isUpdated: boolean;
-      emailVerified: boolean;
-    };
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    photo: string;
+    isUpdated: boolean;
+    emailVerified: boolean;
     address: {
       street: string;
       id: string;
-      number: string;
+      number: number;
       city: string;
       country: string;
       zipCode: string;
@@ -32,8 +30,12 @@ export type ResponseGetUserMe = {
 
 export async function getUserMe(authToken: string, authTokenType: string) {
   const response = await axios.get("/user/me", {
-    headers: { Authorization: `Bearer ${authToken}` },
+    headers: { Authorization: `${authTokenType} ${authToken}` },
   });
+
+  if (response.status !== 200) {
+    throw new Error(response.statusText);
+  }
 
   return response.data as ResponseGetUserMe;
 }

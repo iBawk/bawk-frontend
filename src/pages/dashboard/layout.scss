@@ -15,28 +15,30 @@
     transition: all 0.3s;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: start;
 
     .option {
       text-decoration: none;
-      height: 80px;
+      height: auto;
       width: 250px;
       transition: all 0.3s;
       display: flex;
-      align-items: center;
+      align-items: start;
       color: var(--tertiary-color);
       background-color: transparent;
       cursor: pointer;
 
+      padding: 0.75rem 0;
+
       .icon {
-        width: 30px;
-        height: 30px;
-        padding: 25px;
+        width: 20px;
+        height: 20px;
+        padding: 0 30px;
         transition: all 0.3s;
       }
 
       .text {
-        font-size: 20px;
+        font-size: 18px;
         text-transform: capitalize;
       }
 
@@ -82,6 +84,8 @@
       flex-direction: column;
       overflow: hidden;
 
+      margin-top: auto;
+
       .userCard {
         width: 250px;
         height: 80px;
@@ -96,7 +100,6 @@
           width: 50px;
           height: 50px;
           margin: 15px;
-          background-color: red;
           border-radius: 100%;
           text-transform: uppercase;
           display: flex;
@@ -124,9 +127,9 @@
     }
   }
   .content {
-    overflow-y: hidden;
+    overflow-y: scroll;
     width: 100%;
     height: 100%;
-    background-color: var(--secundary-color-light);
+    background-color: var(--secundary-color-brighter);
   }
 }

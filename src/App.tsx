@@ -1,5 +1,5 @@
 import "./App.scss";
-import 'react-quill/dist/quill.snow.css';
+import "react-quill/dist/quill.snow.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import LayoutDashboard, {
   loaderLayoutDashboard,
@@ -36,6 +36,14 @@ import PageSettings, {
   loaderPageSettings,
 } from "./pages/dashboard/settings/page";
 import PageAddProduct from "./pages/dashboard/add-product/page";
+import PageViewProduct, {
+  LoaderPageViewProduct,
+} from "./pages/dashboard/view-product/page";
+import PageEditProduct, {
+  LoaderPageEditProduct,
+} from "./pages/dashboard/edit-product/edit-product";
+import PageProductOffers, { LoaderPageProductOffers } from "./pages/dashboard/product-offers/product-offers";
+import PageUserProfile from "./pages/dashboard/user-profile/page";
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
@@ -51,11 +59,6 @@ const menuOptions = [
     title: "Minhas Compras",
     link: "minhas-compras",
     icon: <MdInventory2 />,
-  },
-  {
-    title: "Configurações",
-    link: "configuracoes",
-    icon: <RiSettings4Fill />,
   },
 ];
 
@@ -86,6 +89,21 @@ const router = createBrowserRouter([
         element: <PageAddProduct />,
       },
       {
+        path: "/painel/produtos/visualizar/:id",
+        element: <PageViewProduct />,
+        loader: LoaderPageViewProduct,
+      },
+      {
+        path: "/painel/produtos/editar/:id",
+        element: <PageEditProduct />,
+        loader: LoaderPageEditProduct,
+      },
+      {
+        path: "/painel/produtos/ofertas/:id",
+        element: <PageProductOffers/>,
+        loader: LoaderPageProductOffers
+      },
+      {
         path: "/painel/marketplace",
         element: <PageMarketplace />,
         loader: loaderPageMarketplace,
@@ -103,6 +121,11 @@ const router = createBrowserRouter([
       {
         path: "/painel/configuracoes",
         element: <PageSettings />,
+        loader: loaderPageSettings,
+      },
+      {
+        path: "/painel/perfil",
+        element: <PageUserProfile />,
         loader: loaderPageSettings,
       },
     ],

@@ -6,13 +6,15 @@ export type DataElementImageInput = {
   required: boolean;
   onChange?: (value: File | null) => void;
   value: File | null;
+  imgPlaceHolder?: string;
 };
 
 export default function ElementImageInput({
   className,
   required,
   onChange,
-  value
+  value,
+  imgPlaceHolder,
 }: DataElementImageInput) {
   const [imagemFile, setImageFile] = useState<File | null>(value);
 
@@ -30,7 +32,10 @@ export default function ElementImageInput({
     return (
       <img
         className={`${className} img`}
-        src="https://www.madeireiraestrela.com.br/images/joomlart/demo/default.jpg"
+        src={
+          imgPlaceHolder ??
+          "https://www.madeireiraestrela.com.br/images/joomlart/demo/default.jpg"
+        }
         alt=""
       />
     );

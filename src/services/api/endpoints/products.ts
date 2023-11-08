@@ -12,7 +12,7 @@ export type ResponseGetProduct = {
   id: string;
   owner_id: string;
   description: string;
-  status: number;
+  situation: number;
   created_at: string;
 };
 
@@ -27,7 +27,6 @@ export async function getProduct(
   });
 
   if (response.status !== 200) throw new Error(response.statusText);
-
   return response.data as ResponseGetProduct;
 }
 
@@ -51,7 +50,7 @@ export type BodyPostProduct = {
   format: string;
   category: string;
   markdown: string;
-  status: number;
+  situation: number;
   sallerInName: string;
   sallerInEmail: string;
   sallerInPhone: string;
@@ -80,7 +79,33 @@ export async function postProduct(
     headers: { Authorization: `Bearer ${auth.token}` },
   });
 
-  console.log(response.data);
+  if (response.status !== 200) throw new Error(response.statusText);
+
+  return response.data as ResponsePostProduct;
+}
+
+export type BodyPutProduct = {
+  id: string;
+  name: string;
+  description: string;
+  format: string;
+  category: string;
+  markdown: string;
+  situation: number;
+  sallerInName: string;
+  sallerInEmail: string;
+  sallerInPhone: string;
+};
+
+export async function putProduct(
+  auth: DataAuth,
+  body: BodyPutProduct
+): Promise<ResponsePostProduct> {
+  const { id, ...DataProduct } = body;
+
+  const response = await axios.put(`/product/${body.id}`, DataProduct, {
+    headers: { Authorization: `Bearer ${auth.token}` },
+  });
 
   if (response.status !== 200) throw new Error(response.statusText);
 
@@ -96,7 +121,7 @@ export async function deleteProduct(
   auth: DataAuth,
   id: string
 ): Promise<ResponseDeleteProduct> {
-  const response = await axios.delete(`/product?id=${id}`, {
+  const response = await axios.delete(`/product/${id}`, {
     headers: {
       Authorization: `Bearer ${auth.token}`,
     },
@@ -121,9 +146,30 @@ export async function postProductImage(
       "Content-Type": "multipart/form-data",
     },
   });
-  console.log(response.data);
 
   if (response.status !== 200) throw new Error(response.statusText);
 
   return response.data;
+}
+
+export const getProductImageURL = (productId: string) =>
+  `http://127.0.0.1:3334/product/image/${productId}`;
+
+export type ResponseGetProductOffers = {
+
+}
+
+export async function getProductOffers(
+  auth: DataAuth,
+  id: string
+): Promise<ResponseGetProductOffers> {
+  const response = await axios.get(`/product/${id}/offers`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+    },
+  });
+
+  if (response.status !== 200) throw new Error(response.statusText);
+
+  return response.data as ResponseGetProductOffers;
 }

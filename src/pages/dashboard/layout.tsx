@@ -1,6 +1,6 @@
 import "./layout.scss";
 import { Outlet, Link } from "react-router-dom";
-import { cloneElement } from "react";
+import { cloneElement, useEffect } from "react";
 import iconLogo from "../../assets/imgs/icon.svg";
 import logo from "../../assets/imgs/logo-dark.svg";
 import Auth from "../../services/auth/auth";
@@ -9,6 +9,9 @@ import { ResponseGetUserMe } from "../../services/api/endpoints/user-me";
 import API from "../../services/api/api";
 import { BiLogOut } from "react-icons/bi";
 import { useState } from "react";
+
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar } from "antd";
 
 export type TypeOptionsMenu = {
   title: string;
@@ -55,11 +58,20 @@ export function shouldRevalidateLayoutDashboard() {
 export default function LayoutDashboard({ options }: DataStructMenu) {
   const navigate = useNavigate();
   const loaderData = useLoaderData() as DataLoaderLayoutDashboard;
-  const { user } = loaderData.userInformations.loggedUserInfo;
+  const { user } = loaderData.userInformations;
 
   const [currentPage, setCurrentPage] = useState<string>(
     loaderData.initialPage
   );
+
+  const [userImage, setUserImage] = useState<string>();
+
+  useEffect(() => {
+    const userPhoto = API.public.getUserImageURL(user.id);
+    console.log(userPhoto);
+
+    setUserImage(userPhoto);
+  }, [user.id]);
 
   return (
     <main id="LayoutDashboard">
@@ -102,9 +114,14 @@ export default function LayoutDashboard({ options }: DataStructMenu) {
             <BiLogOut className="icon" />
             <span className="text">Sair</span>
           </div>
-          <div className="userCard">
+          <div
+            className="userCard"
+            onClick={() => {
+              navigate("/painel/perfil");
+            }}
+          >
             <div className="userIcon">
-              <span>{user.name.charAt(0)}</span>
+              <Avatar src={userImage} size="large" icon={<UserOutlined />} />
             </div>
             {user.name}
           </div>
