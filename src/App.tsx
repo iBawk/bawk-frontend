@@ -38,6 +38,10 @@ import PageAddProduct from "./pages/dashboard/add-product/page";
 import PageViewProduct, {
   LoaderPageViewProduct,
 } from "./pages/dashboard/view-product/page";
+import PageEditProduct, {
+  LoaderPageEditProduct,
+} from "./pages/dashboard/edit-product/edit-product";
+import PageProductOffers, { LoaderPageProductOffers } from "./pages/dashboard/product-offers/product-offers";
 import PageUserProfile from "./pages/dashboard/user-profile/page";
 
 const menuOptions = [
@@ -87,6 +91,16 @@ const router = createBrowserRouter([
         path: "/painel/produtos/visualizar/:id",
         element: <PageViewProduct />,
         loader: LoaderPageViewProduct,
+      },
+      {
+        path: "/painel/produtos/editar/:id",
+        element: <PageEditProduct />,
+        loader: LoaderPageEditProduct,
+      },
+      {
+        path: "/painel/produtos/ofertas/:id",
+        element: <PageProductOffers/>,
+        loader: LoaderPageProductOffers
       },
       {
         path: "/painel/marketplace",
