@@ -4,38 +4,13 @@ import { Link } from "react-router-dom";
 
 
 export default function LayoutLandpage() {
-    const handleClickScroll = () => {
-        const element = document.getElementById('section-1');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      };
   return (
     <main id="LayoutLandpage">
-      <section id="SectionLandpage">
+      <section className="SectionLandpage">
         <header className="header">
           <nav className="nav">
             <ul className="links">
-              <p>
-                <button className="buttonLink"  onClick={handleClickScroll}>
-                  Home
-                </button>
-              </p>
-              <p>
-                <button className="buttonLink"  onClick={handleClickScroll}>
-                  About Us
-                </button>
-              </p>
-              <p>
-                <button className="buttonLink"  onClick={handleClickScroll}>
-                  Services
-                </button>
-              </p>
-              <p>
-                <button className="buttonLink"  onClick={handleClickScroll}>
-                  Contact
-                </button>
-              </p>
+          
               <Link to="/auth/login" className="containerButton">
                 <button className="buttonLogin">
                     Login
@@ -51,23 +26,28 @@ export default function LayoutLandpage() {
         </header>
         <div className="upperPart">
           <img className="logo" src={logo} alt="Company Logo" />
-          <p className="text">
-            Welcome to our website. We provide high-quality products and services to our customers. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-          </p>
+          <h2 className="text"><center>
+          Simples e essencial para o seu negócio digital vender mais<br></br>
+          Faça seus produtos digitais, aplicativos e serviços atingirem outro nível com nossa infra de pagamentos feita para aumentar a conversão e ticket médio das suas vendas
+          </center></h2>
         </div>
         <main>
           <section className="aboutUs" id="AboutUs">
             <h2 className="text">About Us</h2>
             <p className="text">
-              We are a dedicated team that aims to provide the best solutions for our customers. Our mission is to exceed your expectations.
+                Somos uma equipe dedicada que visa fornecer as melhores soluções para nossos clientes. Nossa missão é superar suas expectativas.
             </p>
           </section>
           <section className="services" id="Services">
-            <h2 className="text">Our Services</h2>
+            <h2 className="text">Nossos Serviços</h2>
             <ul>
-              <li className="text">Service 1</li>
-              <li className="text">Service 2</li>
-              <li className="text">Service 3</li>
+              <li className="text">Alta conversão</li>
+              <p><center>Nossa infra de pagamentos possui múltiplas adquirentes com retentiva inteligente,<br></br> gatilhos de recuperação, um checkout ultra rápido com layout simples e agradável.</center></p>
+              <li className="text">Checkout builder</li>
+              <p><center>Construa um checkout rápido para o seu negócio e aumente a confiança e conversão do seus leads.<br></br> Nosso construtor é simples e prático.</center></p>
+              <li className="text">Alta conversão</li>
+              <p><center>Nossa infra de pagamentos possui múltiplas adquirentes com retentiva inteligente,<br></br> gatilhos de recuperação, um checkout ultra rápido com layout simples e agradável.</center></p>
+
             </ul>
           </section>
         </main>
@@ -75,8 +55,8 @@ export default function LayoutLandpage() {
           <div id="Contact" className="lowerPart">
             <span>Contact Us</span>
             <span>
-              <a className="anchor" href="mailto:contact@company.com">
-                contact@company.com
+              <a className="anchor" href="mailto:bawk@company.com">
+                bawk@company.com
               </a>{" "}
               |{" "}
               <a className="anchor" href="tel:+1234567890">
