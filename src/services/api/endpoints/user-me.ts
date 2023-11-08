@@ -12,7 +12,7 @@ export type ResponseGetUserMe = {
     address: {
       street: string;
       id: string;
-      number: string;
+      number: number;
       city: string;
       country: string;
       zipCode: string;

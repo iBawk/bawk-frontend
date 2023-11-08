@@ -12,7 +12,11 @@ import {
   getProductImageURL,
   putProduct,
 } from "./endpoints/products";
-import { postUserImage, getUserImage } from "./endpoints/user";
+import {
+  postUserImage,
+  getUserImage,
+  updateUserInformation,
+} from "./endpoints/user";
 import { postOffer } from "./endpoints/offer";
 
 const getUserImageURL = (userId: string) =>
@@ -35,6 +39,7 @@ const API = {
   },
   private: {
     getUserMe,
+    updateUserInformation,
     getProduct,
     getProducts,
     postProduct,

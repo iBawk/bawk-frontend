@@ -63,7 +63,7 @@ export type EditUserFormValues = {
   document: string | undefined;
   birthDate: string | undefined;
   street: string | undefined;
-  number: string | undefined;
+  number: number | undefined;
   city: string | undefined;
   country: string | undefined;
   zipCode: string | undefined;
@@ -71,21 +71,25 @@ export type EditUserFormValues = {
   state: string | undefined;
   language: string | undefined;
   district: string | undefined;
+  phone: string | undefined;
 };
 
 const scheme = Yup.object().shape({
-  name: Yup.string().required("Nome é obrigatório"),
-  nationality: Yup.string().required("Nacionalidade é obrigatório"),
-  document: Yup.string().required("CPF é obrigatório"),
-  birthDate: Yup.string().required("Data de nascimento é obrigatório"),
-  street: Yup.string().required("Rua é obrigatório"),
-  number: Yup.string().required("Numero é obrigatório"),
-  city: Yup.string().required("Cidade é obrigatório"),
-  country: Yup.string().required("Pais é obrigatório"),
-  zipCode: Yup.string().required("CEP é obrigatório"),
+  name: Yup.string().required("Nome é obrigatório."),
+  nationality: Yup.string().required("Nacionalidade é obrigatório."),
+  document: Yup.string().required("CPF é obrigatório."),
+  birthDate: Yup.string().required("Data de nascimento é obrigatório."),
+  street: Yup.string().required("Rua é obrigatório."),
+  number: Yup.number()
+    .typeError("O numero deve ser apenas numeros.")
+    .required("Numero é obrigatório."),
+  city: Yup.string().required("Cidade é obrigatório."),
+  country: Yup.string().required("Pais é obrigatório."),
+  zipCode: Yup.string().required("CEP é obrigatório."),
   complement: Yup.string().optional(),
-  state: Yup.string().required("Estado é obrigatório"),
-  district: Yup.string().required("Bairro é obrigatório"),
+  state: Yup.string().required("Estado é obrigatório."),
+  district: Yup.string().required("Bairro é obrigatório."),
+  phone: Yup.string().required("Telefone é obrigatório."),
 });
 
 export default function EditUserDrawer({
@@ -103,9 +107,6 @@ export default function EditUserDrawer({
     enableReinitialize: true,
   });
 
-  console.log(initialValues);
-  console.log(formik.initialValues);
-
   return (
     <>
       <Drawer
@@ -115,41 +116,43 @@ export default function EditUserDrawer({
         closeIcon={false}
         open={open}
         footer={
-          <Space style={{ float: "right" }}>
-            <Button
-              style={{
-                marginRight: 8,
-                width: 120,
-                height: 50,
-                border: "none",
-                fontWeight: "bold",
-              }}
-              onClick={onClose}
-            >
-              Cancelar
-            </Button>
-            <Button
-              style={{
-                marginRight: 8,
-                width: "auto",
-                height: 50,
-                padding: "0 20px",
-                fontWeight: "bold",
-                backgroundColor: "#23CC67",
-              }}
-              type="primary"
-              onClick={(
-                event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-              ) => {
-                event.preventDefault();
-                formik.handleSubmit();
-              }}
-              disabled={disableForm}
-              icon={<CheckCircleOutlined size={10} />}
-            >
-              Salvar Dados
-            </Button>
-          </Space>
+          disableForm ? null : (
+            <Space style={{ float: "right" }}>
+              <Button
+                style={{
+                  marginRight: 8,
+                  width: 120,
+                  height: 50,
+                  border: "none",
+                  fontWeight: "bold",
+                }}
+                onClick={onClose}
+              >
+                Cancelar
+              </Button>
+              <Button
+                style={{
+                  marginRight: 8,
+                  width: "auto",
+                  height: 50,
+                  padding: "0 20px",
+                  fontWeight: "bold",
+                  backgroundColor: "#23CC67",
+                }}
+                type="primary"
+                onClick={(
+                  event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                ) => {
+                  event.preventDefault();
+                  formik.handleSubmit();
+                }}
+                disabled={disableForm}
+                icon={<CheckCircleOutlined size={10} />}
+              >
+                Salvar Dados
+              </Button>
+            </Space>
+          )
         }
       >
         <div className="header">
@@ -205,7 +208,12 @@ export default function EditUserDrawer({
                 </label>
                 <Select
                   size="large"
-                  onChange={formik.handleChange}
+                  onChange={(value) => {
+                    formik.setValues({
+                      ...formik.values,
+                      nationality: value,
+                    });
+                  }}
                   value={formik.values.nationality}
                   options={[{ value: "Brasileiro", label: "Brasileiro" }]}
                   disabled={disableForm}
@@ -215,15 +223,20 @@ export default function EditUserDrawer({
             <Col span={12}>
               <Form.Item
                 hasFeedback
-                validateStatus={formik.errors.nationality ? "error" : ""}
-                help={formik.errors.nationality}
+                validateStatus={formik.errors.language ? "error" : ""}
+                help={formik.errors.language}
               >
-                <label htmlFor="nationality" className="labels">
+                <label htmlFor="language" className="labels">
                   Idioma
                 </label>
                 <Select
                   size="large"
-                  onChange={formik.handleChange}
+                  onChange={(value) => {
+                    formik.setValues({
+                      ...formik.values,
+                      language: value,
+                    });
+                  }}
                   value={formik.values.language}
                   options={[{ value: "Portugues", label: "Portugues" }]}
                   disabled={disableForm}
@@ -270,8 +283,8 @@ export default function EditUserDrawer({
             <Col span={24}>
               <Form.Item
                 hasFeedback
-                validateStatus={formik.errors.nationality ? "error" : ""}
-                help={formik.errors.nationality}
+                validateStatus={formik.errors.birthDate ? "error" : ""}
+                help={formik.errors.birthDate}
               >
                 <label htmlFor="birtDate" className="labels">
                   Data de nascimento
@@ -304,6 +317,27 @@ export default function EditUserDrawer({
             </Col>
           </Row>
 
+          <Row>
+            <Col span={24}>
+              <Form.Item
+                hasFeedback
+                validateStatus={formik.errors.phone ? "error" : ""}
+                help={formik.errors.phone}
+              >
+                <label htmlFor="birtDate" className="labels">
+                  Telefone
+                </label>
+                <Input
+                  name="phone"
+                  size="large"
+                  onChange={formik.handleChange}
+                  value={formik.values.phone}
+                  disabled={disableForm}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
           <p className="category">Endereço</p>
 
           <Row gutter={[10, 8]}>
@@ -316,11 +350,10 @@ export default function EditUserDrawer({
                   size="large"
                   value={formik.values.country}
                   onChange={(value) => {
-                    console.log(value),
-                      formik.setValues({
-                        ...formik.values,
-                        country: value,
-                      });
+                    formik.setValues({
+                      ...formik.values,
+                      country: value,
+                    });
                   }}
                   options={[{ value: "brazil", label: "Brasil" }]}
                   disabled={disableForm}

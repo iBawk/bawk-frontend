@@ -79,8 +79,9 @@ export default function SectionUserProfile() {
     zipCode: userData?.user?.address.zipCode,
     complement: userData?.user?.address.complement,
     state: userData?.user?.address.state,
-    language: "portuguese",
+    language: "Portugues",
     district: "",
+    phone: userData?.user?.phone,
   };
 
   const onChangeImage = (value: RcFile) => {
@@ -136,6 +137,7 @@ export default function SectionUserProfile() {
                 ghost
                 style={{ color: "#02A0FC", borderColor: "#02A0FC" }}
                 onClick={() => {
+                  setViewMode(false);
                   setEditModalVisible(true);
                 }}
               >
@@ -215,13 +217,41 @@ export default function SectionUserProfile() {
       <EditUserDrawer
         onClose={() => {
           setEditModalVisible(!editModalVisible);
-          setViewMode(false);
         }}
         open={editModalVisible}
         initialValues={editInitiaiValues}
         disableForm={viewMode}
         onSubmit={(values) => {
-          console.log(values);
+          const body = {
+            user: {
+              name: values.name,
+              email: userData?.user.email,
+              isUpdated: true,
+              phone: values.phone,
+              photo: "",
+              emailVerified: false,
+            },
+            address: {
+              country: values.country,
+              zipCode: values.zipCode,
+              complement: values.complement,
+              state: values.state,
+              street: values.street,
+              number: values.number,
+              city: values.city,
+            },
+            identification: {
+              birthDate: values.birthDate,
+              document: values.document,
+              nationality: values.nationality,
+            },
+          };
+
+          if (auth) {
+            API.private.updateUserInformation(auth, body).then(() => {
+              window.location.reload();
+            });
+          }
         }}
         imageUrl={imageUrl}
       />
