@@ -20,6 +20,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { MdVerified } from "react-icons/md";
 import { GoUnverified } from "react-icons/go";
+import EditUserDrawer from "./editDrawer/edit-drwaer";
 
 const { Text } = Typography;
 
@@ -42,6 +43,9 @@ export default function SectionUserProfile() {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>("");
 
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [viewMode, setViewMode] = useState(false);
+
   const auth = Auth.getAuth();
 
   useEffect(() => {
@@ -54,7 +58,6 @@ export default function SectionUserProfile() {
       .getUserMe(auth.token, auth.tokenType)
       .then((response) => {
         setUserData(response);
-        console.log(response);
 
         const userPhoto = API.public.getUserImageURL(response.user.id);
         setImageUrl(userPhoto);
@@ -63,6 +66,23 @@ export default function SectionUserProfile() {
         console.error(e);
       });
   }, []);
+
+  const editInitiaiValues = {
+    name: userData?.user?.name,
+    nationality: userData?.user?.identification.nationality,
+    document: userData?.user?.identification.document,
+    birthDate: userData?.user?.identification.birthDate,
+    street: userData?.user?.address.street,
+    number: userData?.user?.address.number,
+    city: userData?.user?.address.city,
+    country: userData?.user?.address.country,
+    zipCode: userData?.user?.address.zipCode,
+    complement: userData?.user?.address.complement,
+    state: userData?.user?.address.state,
+    language: "Portugues",
+    district: "",
+    phone: userData?.user?.phone,
+  };
 
   const onChangeImage = (value: RcFile) => {
     setLoading(true);
@@ -107,11 +127,19 @@ export default function SectionUserProfile() {
                 icon={<EyeOutlined />}
                 ghost
                 style={{ color: "#02A0FC", borderColor: "#02A0FC" }}
+                onClick={() => {
+                  setViewMode(true);
+                  setEditModalVisible(true);
+                }}
               />
               <Button
                 icon={<FaPencilAlt />}
                 ghost
                 style={{ color: "#02A0FC", borderColor: "#02A0FC" }}
+                onClick={() => {
+                  setViewMode(false);
+                  setEditModalVisible(true);
+                }}
               >
                 Editar
               </Button>
@@ -186,6 +214,47 @@ export default function SectionUserProfile() {
           </div>
         </div>
       </StructContainer>
+      <EditUserDrawer
+        onClose={() => {
+          setEditModalVisible(!editModalVisible);
+        }}
+        open={editModalVisible}
+        initialValues={editInitiaiValues}
+        disableForm={viewMode}
+        onSubmit={(values) => {
+          const body = {
+            user: {
+              name: values.name,
+              email: userData?.user.email,
+              isUpdated: true,
+              phone: values.phone,
+              photo: "",
+              emailVerified: false,
+            },
+            address: {
+              country: values.country,
+              zipCode: values.zipCode,
+              complement: values.complement,
+              state: values.state,
+              street: values.street,
+              number: values.number,
+              city: values.city,
+            },
+            identification: {
+              birthDate: values.birthDate,
+              document: values.document,
+              nationality: values.nationality,
+            },
+          };
+
+          if (auth) {
+            API.private.updateUserInformation(auth, body).then(() => {
+              window.location.reload();
+            });
+          }
+        }}
+        imageUrl={imageUrl}
+      />
     </section>
   );
 }
