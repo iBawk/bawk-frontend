@@ -32,17 +32,19 @@ export type updateUserBody = {
   };
   address: {
     street: string | undefined;
-    number: number | undefined;
+    number: string | undefined;
     city: string | undefined;
     country: string | undefined;
     zipCode: string | undefined;
     complement: string | undefined;
     state: string | undefined;
+    district: string | undefined;
   };
   identification: {
     nationality: string | undefined;
     document: string | undefined;
     birthDate: string | undefined;
+    language: string | undefined;
   };
 };
 

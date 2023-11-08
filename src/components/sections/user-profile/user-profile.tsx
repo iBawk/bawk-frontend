@@ -79,8 +79,8 @@ export default function SectionUserProfile() {
     zipCode: userData?.user?.address.zipCode,
     complement: userData?.user?.address.complement,
     state: userData?.user?.address.state,
-    language: "Portugues",
-    district: "",
+    language: userData?.user?.identification.language,
+    district: userData?.user?.address.district,
     phone: userData?.user?.phone,
   };
 
@@ -237,13 +237,15 @@ export default function SectionUserProfile() {
               complement: values.complement,
               state: values.state,
               street: values.street,
-              number: values.number,
+              number: values.number?.toString(),
               city: values.city,
+              district: values.district,
             },
             identification: {
               birthDate: values.birthDate,
               document: values.document,
               nationality: values.nationality,
+              language: values.language,
             },
           };
 

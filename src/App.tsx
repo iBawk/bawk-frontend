@@ -13,7 +13,6 @@ import {
   FaDollarSign,
 } from "react-icons/fa";
 import { MdInventory2 } from "react-icons/md";
-import { RiSettings4Fill } from "react-icons/ri";
 import PageDashboardHome, {
   loaderPageDashboardHome,
 } from "./pages/dashboard/home/home";
@@ -42,8 +41,11 @@ import PageViewProduct, {
 import PageEditProduct, {
   LoaderPageEditProduct,
 } from "./pages/dashboard/edit-product/edit-product";
-import PageProductOffers, { LoaderPageProductOffers } from "./pages/dashboard/product-offers/product-offers";
+import PageProductOffers, {
+  LoaderPageProductOffers,
+} from "./pages/dashboard/product-offers/product-offers";
 import PageUserProfile from "./pages/dashboard/user-profile/page";
+import PageThanks from "./pages/checkout/thanks";
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
@@ -100,8 +102,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/painel/produtos/ofertas/:id",
-        element: <PageProductOffers/>,
-        loader: LoaderPageProductOffers
+        element: <PageProductOffers />,
+        loader: LoaderPageProductOffers,
       },
       {
         path: "/painel/marketplace",
@@ -131,9 +133,12 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/checkout",
+    path: "/checkout/:offerId",
     element: <LayoutCheckout />,
-    
+  },
+  {
+    path: "/checkout/success",
+    element: <PageThanks />,
   },
   {
     path: "/auth",

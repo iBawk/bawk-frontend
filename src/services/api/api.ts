@@ -13,7 +13,7 @@ import {
   putProduct,
 } from "./endpoints/products";
 
-import { getCheckout } from "./endpoints/checkout";
+import { getCheckout, postCheckout } from "./endpoints/checkout";
 
 import {
   postUserImage,
@@ -40,6 +40,7 @@ const API = {
     postUserLogin,
     getProductImageURL,
     getUserImageURL,
+    getCheckout,
   },
   private: {
     getUserMe,
@@ -49,11 +50,11 @@ const API = {
     postProduct,
     deleteProduct,
     postProductImage,
-    getCheckout,
     putProduct,
     postUserImage,
     getUserImage,
     postOffer,
+    postCheckout,
   },
 };
 
