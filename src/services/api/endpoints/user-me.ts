@@ -23,7 +23,7 @@ export type ResponseGetUserMe = {
       nationality: string;
       document: string;
       id: string;
-      birthDate: Date;
+      birthDate: string;
     };
   };
 };

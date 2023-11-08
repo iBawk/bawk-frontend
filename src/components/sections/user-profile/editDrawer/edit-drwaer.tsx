@@ -18,6 +18,36 @@ import "./edit-drawer.scss";
 import { CheckCircleOutlined, UserOutlined } from "@ant-design/icons";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
+const estadosDoBrasil = [
+  { value: "Acre", label: "Acre" },
+  { value: "Alagoas", label: "Alagoas" },
+  { value: "Amapá", label: "Amapá" },
+  { value: "Amazonas", label: "Amazonas" },
+  { value: "Bahia", label: "Bahia" },
+  { value: "Ceará", label: "Ceará" },
+  { value: "Distrito Federal", label: "Distrito Federal" },
+  { value: "Espírito Santo", label: "Espírito Santo" },
+  { value: "Goiás", label: "Goiás" },
+  { value: "Maranhão", label: "Maranhão" },
+  { value: "Mato Grosso", label: "Mato Grosso" },
+  { value: "Mato Grosso do Sul", label: "Mato Grosso do Sul" },
+  { value: "Minas Gerais", label: "Minas Gerais" },
+  { value: "Pará", label: "Pará" },
+  { value: "Paraíba", label: "Paraíba" },
+  { value: "Paraná", label: "Paraná" },
+  { value: "Pernambuco", label: "Pernambuco" },
+  { value: "Piauí", label: "Piauí" },
+  { value: "Rio de Janeiro", label: "Rio de Janeiro" },
+  { value: "Rio Grande do Norte", label: "Rio Grande do Norte" },
+  { value: "Rio Grande do Sul", label: "Rio Grande do Sul" },
+  { value: "Rondônia", label: "Rondônia" },
+  { value: "Roraima", label: "Roraima" },
+  { value: "Santa Catarina", label: "Santa Catarina" },
+  { value: "São Paulo", label: "São Paulo" },
+  { value: "Sergipe", label: "Sergipe" },
+  { value: "Tocantins", label: "Tocantins" },
+];
+
 interface EditUserDrawerProps extends DrawerProps {
   onClose: () => void;
   open: boolean;
@@ -40,6 +70,7 @@ export type EditUserFormValues = {
   complement: string | undefined;
   state: string | undefined;
   language: string | undefined;
+  district: string | undefined;
 };
 
 const scheme = Yup.object().shape({
@@ -54,6 +85,7 @@ const scheme = Yup.object().shape({
   zipCode: Yup.string().required("CEP é obrigatório"),
   complement: Yup.string().optional(),
   state: Yup.string().required("Estado é obrigatório"),
+  district: Yup.string().required("Bairro é obrigatório"),
 });
 
 export default function EditUserDrawer({
@@ -143,9 +175,7 @@ export default function EditUserDrawer({
             <Col span={24}>
               <Form.Item
                 hasFeedback
-                validateStatus={
-                  formik.touched.name && formik.errors.name ? "error" : ""
-                }
+                validateStatus={formik.errors.name ? "error" : ""}
                 help={formik.errors.name}
               >
                 <label htmlFor="name" className="labels">
@@ -157,20 +187,17 @@ export default function EditUserDrawer({
                   placeholder="Seu nome completo"
                   onChange={formik.handleChange}
                   value={formik.values.name}
+                  disabled={disableForm}
                 />
               </Form.Item>
             </Col>
           </Row>
 
-          <Row gutter={[16, 8]}>
+          <Row gutter={[10, 8]}>
             <Col span={12}>
               <Form.Item
                 hasFeedback
-                validateStatus={
-                  formik.touched.nationality && formik.errors.nationality
-                    ? "error"
-                    : ""
-                }
+                validateStatus={formik.errors.nationality ? "error" : ""}
                 help={formik.errors.nationality}
               >
                 <label htmlFor="nationality" className="labels">
@@ -180,18 +207,15 @@ export default function EditUserDrawer({
                   size="large"
                   onChange={formik.handleChange}
                   value={formik.values.nationality}
-                  options={[{ value: "brazil", label: "Brasileiro" }]}
+                  options={[{ value: "Brasileiro", label: "Brasileiro" }]}
+                  disabled={disableForm}
                 />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
                 hasFeedback
-                validateStatus={
-                  formik.touched.nationality && formik.errors.nationality
-                    ? "error"
-                    : ""
-                }
+                validateStatus={formik.errors.nationality ? "error" : ""}
                 help={formik.errors.nationality}
               >
                 <label htmlFor="nationality" className="labels">
@@ -201,13 +225,14 @@ export default function EditUserDrawer({
                   size="large"
                   onChange={formik.handleChange}
                   value={formik.values.language}
-                  options={[{ value: "portuguese", label: "Portugues" }]}
+                  options={[{ value: "Portugues", label: "Portugues" }]}
+                  disabled={disableForm}
                 />
               </Form.Item>
             </Col>
           </Row>
 
-          <Row gutter={[16, 8]}>
+          <Row gutter={[10, 8]}>
             <Col span={12}>
               <Form.Item>
                 <label htmlFor="type" className="labels">
@@ -217,26 +242,25 @@ export default function EditUserDrawer({
                   size="large"
                   value={"cpf"}
                   options={[{ value: "cpf", label: "CPF" }]}
+                  disabled={disableForm}
                 />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
                 hasFeedback
-                validateStatus={
-                  formik.touched.document && formik.errors.document
-                    ? "error"
-                    : ""
-                }
+                validateStatus={formik.errors.document ? "error" : ""}
                 help={formik.errors.document}
               >
                 <label htmlFor="document" className="labels">
                   Nº do documento
                 </label>
                 <Input
+                  name="document"
                   size="large"
                   onChange={formik.handleChange}
                   value={formik.values.document}
+                  disabled={disableForm}
                 />
               </Form.Item>
             </Col>
@@ -246,11 +270,7 @@ export default function EditUserDrawer({
             <Col span={24}>
               <Form.Item
                 hasFeedback
-                validateStatus={
-                  formik.touched.nationality && formik.errors.nationality
-                    ? "error"
-                    : ""
-                }
+                validateStatus={formik.errors.nationality ? "error" : ""}
                 help={formik.errors.nationality}
               >
                 <label htmlFor="birtDate" className="labels">
@@ -278,6 +298,7 @@ export default function EditUserDrawer({
                     formik.setFieldValue("birthDate", value);
                   }}
                   value={formik.values.birthDate}
+                  disabled={disableForm}
                 />
               </Form.Item>
             </Col>
@@ -285,127 +306,174 @@ export default function EditUserDrawer({
 
           <p className="category">Endereço</p>
 
-          <Form.Item
-            hasFeedback
-            validateStatus={
-              formik.touched.street && formik.errors.street ? "error" : ""
-            }
-            help={formik.errors.street}
-          >
-            <label htmlFor="street" className="labels">
-              Rua
-            </label>
-            <Input
-              size="large"
-              placeholder="Rua, Avenida, Alameda"
-              onChange={formik.handleChange}
-              value={formik.values.street}
-            />
-          </Form.Item>
-          <Form.Item
-            hasFeedback
-            validateStatus={
-              formik.touched.number && formik.errors.number ? "error" : ""
-            }
-            help={formik.errors.number}
-          >
-            <label htmlFor="number" className="labels">
-              Número
-            </label>
-            <Input
-              size="large"
-              placeholder="123"
-              onChange={formik.handleChange}
-              value={formik.values.number}
-            />
-          </Form.Item>
-          <Form.Item
-            hasFeedback
-            validateStatus={
-              formik.touched.city && formik.errors.city ? "error" : ""
-            }
-            help={formik.errors.city}
-          >
-            <label htmlFor="city" className="labels">
-              Cidade
-            </label>
-            <Input
-              size="large"
-              placeholder="Sao Paulo"
-              onChange={formik.handleChange}
-              value={formik.values.city}
-            />
-          </Form.Item>
-          <Form.Item
-            hasFeedback
-            validateStatus={
-              formik.touched.country && formik.errors.country ? "error" : ""
-            }
-            help={formik.errors.country}
-          >
-            <label htmlFor="country" className="labels">
-              País
-            </label>
-            <Input
-              size="large"
-              placeholder="Seu nome completo"
-              onChange={formik.handleChange}
-              value={formik.values.country}
-            />
-          </Form.Item>
-          <Form.Item
-            hasFeedback
-            validateStatus={
-              formik.touched.zipCode && formik.errors.zipCode ? "error" : ""
-            }
-            help={formik.errors.zipCode}
-          >
-            <label htmlFor="zipCode" className="labels">
-              Nacionalidade
-            </label>
-            <Input
-              size="large"
-              placeholder="06454-000"
-              onChange={formik.handleChange}
-              value={formik.values.zipCode}
-            />
-          </Form.Item>
-          <Form.Item
-            hasFeedback
-            validateStatus={
-              formik.touched.state && formik.errors.state ? "error" : ""
-            }
-            help={formik.errors.state}
-          >
-            <label htmlFor="state" className="labels">
-              Nacionalidade
-            </label>
-            <Input
-              size="large"
-              placeholder="Seu nome completo"
-              onChange={formik.handleChange}
-              value={formik.values.state}
-            />
-          </Form.Item>
-          <Form.Item
-            hasFeedback
-            validateStatus={
-              formik.touched.complement && formik.errors.complement
-                ? "error"
-                : ""
-            }
-            help={formik.errors.complement}
-          >
-            <label htmlFor="complement" className="labels">
-              Nacionalidade
-            </label>
-            <Input
-              size="large"
-              placeholder="Seu nome completo"
-              onChange={formik.handleChange}
-              value={formik.values.complement}
-            />
-          </Form.Item>
+          <Row gutter={[10, 8]}>
+            <Col span={12}>
+              <Form.Item>
+                <label htmlFor="type" className="labels">
+                  País
+                </label>
+                <Select
+                  size="large"
+                  value={formik.values.country}
+                  onChange={(value) => {
+                    console.log(value),
+                      formik.setValues({
+                        ...formik.values,
+                        country: value,
+                      });
+                  }}
+                  options={[{ value: "brazil", label: "Brasil" }]}
+                  disabled={disableForm}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                hasFeedback
+                validateStatus={formik.errors.zipCode ? "error" : ""}
+                help={formik.errors.zipCode}
+              >
+                <label htmlFor="zipCode" className="labels">
+                  CEP
+                </label>
+                <Input
+                  name="zipCode"
+                  size="large"
+                  onChange={formik.handleChange}
+                  value={formik.values.zipCode}
+                  disabled={disableForm}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={[10, 8]}>
+            <Col span={16}>
+              <Form.Item
+                hasFeedback
+                validateStatus={formik.errors.street ? "error" : ""}
+                help={formik.errors.street}
+              >
+                <label htmlFor="street" className="labels">
+                  Endereço
+                </label>
+                <Input
+                  size="large"
+                  name="street"
+                  placeholder="Rua, Avenida, Alameda"
+                  onChange={formik.handleChange}
+                  value={formik.values.street}
+                  disabled={disableForm}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item
+                hasFeedback
+                validateStatus={formik.errors.number ? "error" : ""}
+                help={formik.errors.number}
+              >
+                <label htmlFor="number" className="labels">
+                  Numero
+                </label>
+                <Input
+                  size="large"
+                  name="number"
+                  placeholder="123"
+                  onChange={formik.handleChange}
+                  value={formik.values.number}
+                  disabled={disableForm}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={[10, 8]}>
+            <Col span={12}>
+              <Form.Item
+                hasFeedback
+                validateStatus={formik.errors.complement ? "error" : ""}
+                help={formik.errors.complement}
+              >
+                <label htmlFor="complement" className="labels">
+                  Complemento
+                </label>
+                <Input
+                  size="large"
+                  name="complement"
+                  placeholder="Ap, Bloco"
+                  onChange={formik.handleChange}
+                  value={formik.values.complement}
+                  disabled={disableForm}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                hasFeedback
+                validateStatus={formik.errors.district ? "error" : ""}
+                help={formik.errors.district}
+              >
+                <label htmlFor="district" className="labels">
+                  Bairro
+                </label>
+                <Input
+                  size="large"
+                  name="district"
+                  placeholder="Centro"
+                  onChange={formik.handleChange}
+                  value={formik.values.district}
+                  disabled={disableForm}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={[10, 8]}>
+            <Col span={12}>
+              <Form.Item
+                hasFeedback
+                validateStatus={formik.errors.city ? "error" : ""}
+                help={formik.errors.city}
+              >
+                <label htmlFor="city" className="labels">
+                  Cidade
+                </label>
+                <Input
+                  size="large"
+                  name="city"
+                  placeholder="Ap, Bloco"
+                  onChange={formik.handleChange}
+                  value={formik.values.city}
+                  disabled={disableForm}
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                hasFeedback
+                validateStatus={formik.errors.state ? "error" : ""}
+                help={formik.errors.state}
+              >
+                <label htmlFor="state" className="labels">
+                  Estado
+                </label>
+                <Select
+                  size="large"
+                  value={formik.values.state}
+                  onChange={(value) => {
+                    console.log(value),
+                      formik.setValues({
+                        ...formik.values,
+                        state: value,
+                      });
+                  }}
+                  options={estadosDoBrasil}
+                  disabled={disableForm}
+                />
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       </Drawer>
     </>

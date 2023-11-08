@@ -44,6 +44,7 @@ export default function SectionUserProfile() {
   const [imageUrl, setImageUrl] = useState<string>("");
 
   const [editModalVisible, setEditModalVisible] = useState(false);
+  const [viewMode, setViewMode] = useState(false);
 
   const auth = Auth.getAuth();
 
@@ -79,6 +80,7 @@ export default function SectionUserProfile() {
     complement: userData?.user?.address.complement,
     state: userData?.user?.address.state,
     language: "portuguese",
+    district: "",
   };
 
   const onChangeImage = (value: RcFile) => {
@@ -124,6 +126,10 @@ export default function SectionUserProfile() {
                 icon={<EyeOutlined />}
                 ghost
                 style={{ color: "#02A0FC", borderColor: "#02A0FC" }}
+                onClick={() => {
+                  setViewMode(true);
+                  setEditModalVisible(true);
+                }}
               />
               <Button
                 icon={<FaPencilAlt />}
@@ -209,10 +215,11 @@ export default function SectionUserProfile() {
       <EditUserDrawer
         onClose={() => {
           setEditModalVisible(!editModalVisible);
+          setViewMode(false);
         }}
         open={editModalVisible}
         initialValues={editInitiaiValues}
-        disableForm={false}
+        disableForm={viewMode}
         onSubmit={(values) => {
           console.log(values);
         }}
