@@ -155,14 +155,19 @@ export async function postProductImage(
 export const getProductImageURL = (productId: string) =>
   `http://127.0.0.1:3334/product/image/${productId}`;
 
-export type ResponseGetProductOffers = {
-
-}
+export type ResponseGetProductOffer = {
+  created_at: string;
+  id: string;
+  marketplace: boolean;
+  price: number;
+  product_id: string;
+  situation: number;
+};
 
 export async function getProductOffers(
   auth: DataAuth,
   id: string
-): Promise<ResponseGetProductOffers> {
+): Promise<Array<ResponseGetProductOffer>> {
   const response = await axios.get(`/product/${id}/offers`, {
     headers: {
       Authorization: `Bearer ${auth.token}`,
@@ -171,5 +176,5 @@ export async function getProductOffers(
 
   if (response.status !== 200) throw new Error(response.statusText);
 
-  return response.data as ResponseGetProductOffers;
+  return response.data as Array<ResponseGetProductOffer>;
 }

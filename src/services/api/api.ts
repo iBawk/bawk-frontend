@@ -11,6 +11,7 @@ import {
   postProductImage,
   getProductImageURL,
   putProduct,
+  getProductOffers,
 } from "./endpoints/products";
 import {
   postUserImage,
@@ -49,6 +50,7 @@ const API = {
     postUserImage,
     getUserImage,
     postOffer,
+    getProductOffers,
   },
 };
 

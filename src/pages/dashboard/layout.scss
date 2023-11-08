@@ -15,30 +15,28 @@
     transition: all 0.3s;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: space-between;
 
     .option {
       text-decoration: none;
-      height: auto;
+      height: 80px;
       width: 250px;
       transition: all 0.3s;
       display: flex;
-      align-items: start;
+      align-items: center;
       color: var(--tertiary-color);
       background-color: transparent;
       cursor: pointer;
 
-      padding: 0.75rem 0;
-
       .icon {
-        width: 20px;
-        height: 20px;
-        padding: 0 30px;
+        width: 30px;
+        height: 30px;
+        padding: 25px;
         transition: all 0.3s;
       }
 
       .text {
-        font-size: 18px;
+        font-size: 20px;
         text-transform: capitalize;
       }
 
@@ -83,8 +81,6 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-
-      margin-top: auto;
 
       .userCard {
         width: 250px;

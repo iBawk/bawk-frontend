@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axios } from "../api";
 import { DataAuth } from "../../auth/auth";
 
 export enum ResponsePostOffer {
@@ -27,7 +27,3 @@ export async function postOffer(
 
   return ResponsePostOffer.OK;
 }
-
-
-
-
