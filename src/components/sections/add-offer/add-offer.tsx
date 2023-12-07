@@ -4,7 +4,7 @@ import StructContainer from "../../../components/structs/container/container";
 import { FormEvent, useState } from "react";
 import Auth from "../../../services/auth/auth";
 import API from "../../../services/api/api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ResponseGetProductOffer } from "../../../services/api/endpoints/products";
 
 export type DataSectionAddOffer = {
@@ -137,6 +137,11 @@ export default function SectionAddOffer({
                             {situation === 1 ? "Ativa" : "Inativa"}
                           </strong>
                         </p>
+                        {situation === 1 && (
+                          <Link to={`/checkout/${id}`} target="_blank">
+                            <Button>Ir para Checkout da Oferta</Button>
+                          </Link>
+                        )}
                       </div>
                     </Col>
                   );
