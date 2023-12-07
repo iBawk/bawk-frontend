@@ -63,7 +63,7 @@ export type EditUserFormValues = {
   document: string | undefined;
   birthDate: string | undefined;
   street: string | undefined;
-  number: number | undefined;
+  number: string | undefined;
   city: string | undefined;
   country: string | undefined;
   zipCode: string | undefined;
@@ -80,9 +80,7 @@ const scheme = Yup.object().shape({
   document: Yup.string().required("CPF é obrigatório."),
   birthDate: Yup.string().required("Data de nascimento é obrigatório."),
   street: Yup.string().required("Rua é obrigatório."),
-  number: Yup.number()
-    .typeError("O numero deve ser apenas numeros.")
-    .required("Numero é obrigatório."),
+  number: Yup.string().required("Numero é obrigatório."),
   city: Yup.string().required("Cidade é obrigatório."),
   country: Yup.string().required("Pais é obrigatório."),
   zipCode: Yup.string().required("CEP é obrigatório."),
@@ -90,6 +88,7 @@ const scheme = Yup.object().shape({
   state: Yup.string().required("Estado é obrigatório."),
   district: Yup.string().required("Bairro é obrigatório."),
   phone: Yup.string().required("Telefone é obrigatório."),
+  language: Yup.string().required("Idioma é obrigatório."),
 });
 
 export default function EditUserDrawer({

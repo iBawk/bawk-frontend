@@ -11,12 +11,17 @@ import {
   postProductImage,
   getProductImageURL,
   putProduct,
+  getProductOffers,
 } from "./endpoints/products";
+
+import { getCheckout, postCheckout } from "./endpoints/checkout";
+
 import {
   postUserImage,
   getUserImage,
   updateUserInformation,
 } from "./endpoints/user";
+
 import { postOffer } from "./endpoints/offer";
 
 const getUserImageURL = (userId: string) =>
@@ -36,6 +41,7 @@ const API = {
     postUserLogin,
     getProductImageURL,
     getUserImageURL,
+    getCheckout,
   },
   private: {
     getUserMe,
@@ -49,6 +55,8 @@ const API = {
     postUserImage,
     getUserImage,
     postOffer,
+    getProductOffers,
+    postCheckout,
   },
 };
 
