@@ -16,7 +16,7 @@ export async function LoaderPageProductOffers({
 }: any): Promise<ResponseLoaderPageProductOffers | Response> {
   const auth = Auth.getAuth();
 
-  if (!params.id || !auth) return redirect("/auth/login");
+  if (!params.id || !auth) return redirect("/login");
 
   const productData = await API.private.getProduct(auth, params.id);
   const productOffers = await API.private.getProductOffers(auth, params.id);
@@ -38,7 +38,7 @@ export default function PageProductOffers() {
       <SectionAddOffer
         productId={loaderData.productId}
         productName={loaderData.productName}
-        productOffersInitial  ={loaderData.productOffers}
+        productOffersInitial={loaderData.productOffers}
       />
     </main>
   );

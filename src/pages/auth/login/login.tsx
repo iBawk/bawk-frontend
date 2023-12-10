@@ -1,9 +1,12 @@
 import SectionLogin from "../../../components/sections/login/login";
+import LayoutAuth from "../layout";
 
 export default function PageLogin() {
   return (
     <main>
-      <SectionLogin />
+      <LayoutAuth>
+        <SectionLogin />
+      </LayoutAuth>
     </main>
   );
 }

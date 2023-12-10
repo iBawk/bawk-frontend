@@ -14,7 +14,7 @@ export async function LoaderPageViewProduct({
 }: any): Promise<ResponseLoaderPageViewProduct | Response> {
   const auth = Auth.getAuth();
 
-  if (!params.id || !auth) return redirect("/auth/login");
+  if (!params.id || !auth) return redirect("/login");
 
   const response = await API.private.getProduct(auth, params.id);
 

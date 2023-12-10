@@ -40,7 +40,7 @@ export default function SectionEditProduct(data: DataSectionEditProduct) {
     const auth = Auth.getAuth();
 
     if (!auth) {
-      navigate("/auth/login");
+      navigate("/login");
       return;
     }
 

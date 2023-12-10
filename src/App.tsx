@@ -141,18 +141,16 @@ const router = createBrowserRouter([
     element: <PageThanks />,
   },
   {
-    path: "/auth",
+    path: "/login",
+    element: <PageLogin />,
+  },
+  {
+    path: "/sign-up",
+    element: <PageSignUp />,
+  },
+  {
+    path: "/",
     element: <LayoutAuth />,
-    children: [
-      {
-        path: "/auth/login",
-        element: <PageLogin />,
-      },
-      {
-        path: "/auth/sign-up",
-        element: <PageSignUp />,
-      },
-    ],
   },
 ]);
 

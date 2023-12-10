@@ -27,7 +27,7 @@ export default function PageProducts() {
   const loaderData = useLoaderData() as DataLoaderPageProducts;
   const [products, setProducts] = useState<Array<ResponseGetProduct>>(
     loaderData.products
-  ); 
+  );
 
   return (
     <main>
@@ -54,7 +54,7 @@ export default function PageProducts() {
                 const auth = Auth.getAuth();
 
                 if (!auth) {
-                  navigate("/auth/login");
+                  navigate("/login");
                   return;
                 }
 

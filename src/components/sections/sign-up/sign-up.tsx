@@ -77,7 +77,7 @@ export default function SectionSignUp(data: DataSectionSignUp) {
       })
       .then((response) => {
         console.log(response);
-        navigate("/auth/login");
+        navigate("/login");
       })
       .catch((error) => {
         console.log(error);
@@ -201,7 +201,7 @@ export default function SectionSignUp(data: DataSectionSignUp) {
               Sign Up
             </Button>
           </div>
-          <Link to="/auth/login" className="containerButton">
+          <Link to="/login" className="containerButton">
             <Button className="button buttonLoggin" type="default">
               Login
             </Button>

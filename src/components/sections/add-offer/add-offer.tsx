@@ -50,7 +50,7 @@ export default function SectionAddOffer({
     const auth = Auth.getAuth();
 
     if (!auth) {
-      navigate("/auth/login");
+      navigate("/login");
       return;
     }
 
