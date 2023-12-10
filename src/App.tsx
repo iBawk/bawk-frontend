@@ -45,7 +45,9 @@ import PageProductOffers, {
   LoaderPageProductOffers,
 } from "./pages/dashboard/product-offers/product-offers";
 import PageUserProfile from "./pages/dashboard/user-profile/page";
+import LayoutLandpage from "./pages/landpage/layout";
 import PageThanks from "./pages/checkout/thanks";
+
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
@@ -151,6 +153,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <LayoutAuth />,
+  },
+  {
+    path: "",
+    element: <LayoutLandpage/>,
   },
 ]);
 
