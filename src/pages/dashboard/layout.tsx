@@ -35,8 +35,7 @@ export async function loaderLayoutDashboard({
 }): Promise<DataLoaderLayoutDashboard | Response> {
   const authRes = Auth.getAuth();
 
-  if (!authRes || Auth.isTokenExpired(authRes.token))
-    return redirect("/auth/login");
+  if (!authRes || Auth.isTokenExpired(authRes.token)) return redirect("/login");
 
   const responseUserMe = await API.private.getUserMe(
     authRes.token,
@@ -107,7 +106,7 @@ export default function LayoutDashboard({ options }: DataStructMenu) {
             className="option"
             onClick={() => {
               Auth.removeAuth();
-              navigate("/auth/login");
+              navigate("/login");
             }}
             title="Configurações"
           >

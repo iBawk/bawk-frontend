@@ -38,7 +38,7 @@ export default function SectionAddProduct() {
     const auth = Auth.getAuth();
 
     if (!auth) {
-      navigate("/auth/login");
+      navigate("/login");
       return;
     }
 

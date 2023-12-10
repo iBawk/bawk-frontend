@@ -14,7 +14,7 @@ export async function LoaderPageEditProduct({
 }: any): Promise<ResponseLoaderPageEditProduct | Response> {
   const auth = Auth.getAuth();
 
-  if (!params.id || !auth) return redirect("/auth/login");
+  if (!params.id || !auth) return redirect("/login");
 
   const responseProduct = await API.private.getProduct(auth, params.id);
 

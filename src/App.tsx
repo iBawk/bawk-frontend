@@ -16,7 +16,6 @@ import { MdInventory2 } from "react-icons/md";
 import PageDashboardHome, {
   loaderPageDashboardHome,
 } from "./pages/dashboard/home/home";
-import LayoutAuth from "./pages/auth/layout";
 import LayoutCheckout from "./pages/checkout/checkout";
 import PageLogin from "./pages/auth/login/login";
 import PageSignUp from "./pages/auth/sign-up/sign-up";
@@ -47,7 +46,6 @@ import PageProductOffers, {
 import PageUserProfile from "./pages/dashboard/user-profile/page";
 import LayoutLandpage from "./pages/landpage/layout";
 import PageThanks from "./pages/checkout/thanks";
-
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
@@ -143,22 +141,16 @@ const router = createBrowserRouter([
     element: <PageThanks />,
   },
   {
-    path: "/auth",
-    element: <LayoutAuth />,
-    children: [
-      {
-        path: "/auth/login",
-        element: <PageLogin />,
-      },
-      {
-        path: "/auth/sign-up",
-        element: <PageSignUp />,
-      },
-    ],
+    path: "/login",
+    element: <PageLogin />,
+  },
+  {
+    path: "/sign-up",
+    element: <PageSignUp />,
   },
   {
     path: "",
-    element: <LayoutLandpage/>,
+    element: <LayoutLandpage />,
   },
 ]);
 

@@ -125,7 +125,7 @@ export default function SectionLogin(data: DataSectionLogin) {
               Login
             </Button>
           </div>
-          <Link to="/auth/sign-up" className="containerButton">
+          <Link to="/sign-up" className="containerButton">
             <Button className="button buttonSiginUp" type="default">
               Sign Up
             </Button>

@@ -50,7 +50,7 @@ export default function SectionUserProfile() {
 
   useEffect(() => {
     if (!auth) {
-      navigate("/auth/login");
+      navigate("/login");
       return;
     }
 
@@ -89,7 +89,7 @@ export default function SectionUserProfile() {
     const auth = Auth.getAuth();
 
     if (!auth) {
-      navigate("/auth/login");
+      navigate("/login");
       return;
     }
 
