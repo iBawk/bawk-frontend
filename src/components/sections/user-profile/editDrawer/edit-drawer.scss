@@ -1,0 +1,45 @@
+
+.edit-drawer {
+
+  padding: 0;
+
+  .header {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+
+    h1 {
+      font-size: 24px;
+      line-height: 2rem;
+      
+      font-weight: 500;
+      
+      margin-right: auto;
+    }  
+
+    .closeIcon {
+      :hover {
+        color: rgb(138, 138, 138);
+      }
+    }
+  }
+
+  .avatar {
+    padding: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .category {
+    font-weight: 500;
+    font-size: 18px;
+  }
+  
+  .labels {
+    font-weight: 300;
+  }
+}

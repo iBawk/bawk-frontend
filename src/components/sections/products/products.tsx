@@ -34,6 +34,7 @@ export default function SectionProducts({ products }: DataSecitonProducts) {
                 price,
                 title,
                 editLink,
+                offerLink,
                 onDelete,
               },
               index
@@ -49,6 +50,7 @@ export default function SectionProducts({ products }: DataSecitonProducts) {
                   category={category}
                   viewLink={viewLink}
                   editLink={editLink}
+                  offerLink={offerLink}
                   onDelete={onDelete}
                 />
               </Col>

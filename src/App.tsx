@@ -13,11 +13,11 @@ import {
   FaDollarSign,
 } from "react-icons/fa";
 import { MdInventory2 } from "react-icons/md";
-import { RiSettings4Fill } from "react-icons/ri";
 import PageDashboardHome, {
   loaderPageDashboardHome,
 } from "./pages/dashboard/home/home";
 import LayoutAuth from "./pages/auth/layout";
+import LayoutCheckout from "./pages/checkout/checkout";
 import PageLogin from "./pages/auth/login/login";
 import PageSignUp from "./pages/auth/sign-up/sign-up";
 import PageSales, { loaderPageSales } from "./pages/dashboard/sales/page";
@@ -38,8 +38,16 @@ import PageAddProduct from "./pages/dashboard/add-product/page";
 import PageViewProduct, {
   LoaderPageViewProduct,
 } from "./pages/dashboard/view-product/page";
+import PageEditProduct, {
+  LoaderPageEditProduct,
+} from "./pages/dashboard/edit-product/edit-product";
+import PageProductOffers, {
+  LoaderPageProductOffers,
+} from "./pages/dashboard/product-offers/product-offers";
 import PageUserProfile from "./pages/dashboard/user-profile/page";
 import LayoutLandpage from "./pages/landpage/layout";
+import PageThanks from "./pages/checkout/thanks";
+
 
 const menuOptions = [
   { title: "Home", link: "", icon: <AiFillHome /> },
@@ -55,11 +63,6 @@ const menuOptions = [
     title: "Minhas Compras",
     link: "minhas-compras",
     icon: <MdInventory2 />,
-  },
-  {
-    title: "Configurações",
-    link: "configuracoes",
-    icon: <RiSettings4Fill />,
   },
 ];
 
@@ -95,6 +98,16 @@ const router = createBrowserRouter([
         loader: LoaderPageViewProduct,
       },
       {
+        path: "/painel/produtos/editar/:id",
+        element: <PageEditProduct />,
+        loader: LoaderPageEditProduct,
+      },
+      {
+        path: "/painel/produtos/ofertas/:id",
+        element: <PageProductOffers />,
+        loader: LoaderPageProductOffers,
+      },
+      {
         path: "/painel/marketplace",
         element: <PageMarketplace />,
         loader: loaderPageMarketplace,
@@ -120,6 +133,14 @@ const router = createBrowserRouter([
         loader: loaderPageSettings,
       },
     ],
+  },
+  {
+    path: "/checkout/:offerId",
+    element: <LayoutCheckout />,
+  },
+  {
+    path: "/checkout/success",
+    element: <PageThanks />,
   },
   {
     path: "/auth",

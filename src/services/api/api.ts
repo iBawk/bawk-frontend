@@ -9,11 +9,20 @@ import {
   postProduct,
   deleteProduct,
   postProductImage,
+  getProductImageURL,
+  putProduct,
+  getProductOffers,
 } from "./endpoints/products";
-import { postUserImage, getUserImage } from "./endpoints/user";
 
-const getProductImageURL = (productId: string) =>
-  `http://127.0.0.1:3334/product/image/${productId}`;
+import { getCheckout, postCheckout } from "./endpoints/checkout";
+
+import {
+  postUserImage,
+  getUserImage,
+  updateUserInformation,
+} from "./endpoints/user";
+
+import { postOffer } from "./endpoints/offer";
 
 const getUserImageURL = (userId: string) =>
   `http://127.0.0.1:3334/user/image/${userId}`;
@@ -32,16 +41,22 @@ const API = {
     postUserLogin,
     getProductImageURL,
     getUserImageURL,
+    getCheckout,
   },
   private: {
     getUserMe,
+    updateUserInformation,
     getProduct,
     getProducts,
     postProduct,
     deleteProduct,
     postProductImage,
+    putProduct,
     postUserImage,
     getUserImage,
+    postOffer,
+    getProductOffers,
+    postCheckout,
   },
 };
 

@@ -1,6 +1,6 @@
 @import "../../../mixins.scss";
 
-#ElementProductForm{
+#ElementCheckoutForm{
   .inputNumber{
     width: 100%;
   }
@@ -12,7 +12,5 @@
   .containerButton{
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-    gap: 30px;
   }
 }
