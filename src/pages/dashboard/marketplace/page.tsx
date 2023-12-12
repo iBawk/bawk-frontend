@@ -1,15 +1,9 @@
-import { useLoaderData } from "react-router-dom";
-
-export type DataLoaderPageMarketplace = {};
-
-export async function loaderPageMarketplace(): Promise<
-  DataLoaderPageMarketplace | Response
-> {
-  return {};
-}
+import SectionMarketplace from "../../../components/sections/marktplace/marketplace";
 
 export default function PageMarketplace() {
-  const loaderData = useLoaderData() as DataLoaderPageMarketplace;
-
-  return <main></main>;
+  return (
+    <main>
+      <SectionMarketplace />
+    </main>
+  );
 }

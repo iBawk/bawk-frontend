@@ -19,7 +19,7 @@ export type DataElementProductCard = {
   editLink?: string;
   offerLink?: string;
   status: boolean;
-  price: string;
+  price?: string;
   forSale?: boolean;
   forOwner?: boolean;
   onDelete?: () => void;
@@ -28,8 +28,6 @@ export type DataElementProductCard = {
 export default function ElementProductCard({
   title,
   description,
-  forOwner,
-  forSale,
   img,
   onDelete,
   viewLink,
@@ -37,7 +35,6 @@ export default function ElementProductCard({
   offerLink,
   price,
   category,
-  status,
 }: DataElementProductCard) {
   const [modalStatus, setModalStatus] = useState<boolean>(false);
 
@@ -70,7 +67,7 @@ export default function ElementProductCard({
       <div className="ElementProductCard">
         <div className="header">
           <img className="img" src={img} alt="" />
-          <ElementPriceTag>R$ {price}</ElementPriceTag>
+          {price && <ElementPriceTag>R$ {price}</ElementPriceTag>}
         </div>
 
         <div className="body">

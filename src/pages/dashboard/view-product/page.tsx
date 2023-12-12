@@ -38,7 +38,6 @@ export default function PageViewProduct() {
     sallerInEmail,
     sallerInName,
     sallerInPhone,
-    status,
   } = productData;
 
   const date = new Date(created_at);
@@ -58,9 +57,7 @@ export default function PageViewProduct() {
           sallerInEmail,
           sallerInName,
           sallerInPhone,
-          status,
           img: productImg,
-          price: "100,00",
         }}
       />
     </main>

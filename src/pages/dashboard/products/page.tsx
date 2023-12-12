@@ -33,13 +33,7 @@ export default function PageProducts() {
     <main>
       <SectionProducts
         products={products.map(
-          ({
-            id,
-            category,
-            description,
-            name,
-            status,
-          }): DataElementProductCard => {
+          ({ id, category, description, name }): DataElementProductCard => {
             return {
               title: name,
               description: description,
@@ -47,7 +41,6 @@ export default function PageProducts() {
               img: API.public.getProductImageURL(id),
               viewLink: `/painel/produtos/visualizar/${id}`,
               editLink: `/painel/produtos/editar/${id}`,
-              price: "100,00",
               status: !!status,
               offerLink: `/painel/produtos/ofertas/${id}`,
               onDelete: () => {

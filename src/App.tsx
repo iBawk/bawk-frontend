@@ -23,9 +23,7 @@ import PageSales, { loaderPageSales } from "./pages/dashboard/sales/page";
 import PageProducts, {
   loaderPageProducts,
 } from "./pages/dashboard/products/page";
-import PageMarketplace, {
-  loaderPageMarketplace,
-} from "./pages/dashboard/marketplace/page";
+import PageMarketplace from "./pages/dashboard/marketplace/page";
 import PageFinance, { loaderPageFinance } from "./pages/dashboard/finance/page";
 import PageMyShopping, {
   loaderPageMyShopping,
@@ -108,7 +106,6 @@ const router = createBrowserRouter([
       {
         path: "/painel/marketplace",
         element: <PageMarketplace />,
-        loader: loaderPageMarketplace,
       },
       {
         path: "/painel/financas",
