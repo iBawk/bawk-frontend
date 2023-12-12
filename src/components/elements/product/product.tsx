@@ -2,7 +2,6 @@ import "./product.scss";
 import { Row, Col } from "antd";
 import HTMLReactParser from "html-react-parser";
 import ElementPriceTag from "../price-tag/price-tag";
-import { useNavigate } from "react-router-dom";
 
 export type DataElementProduct = {
   name: string;
@@ -19,8 +18,6 @@ export type DataElementProduct = {
 };
 
 export default function ElementProduct(data: DataElementProduct) {
-  const navigate = useNavigate();
-
   const {
     name,
     img,
@@ -50,7 +47,7 @@ export default function ElementProduct(data: DataElementProduct) {
             </span>
           </div>
         </Col>
-        <Col span={16}>
+        <Col span={16} className="containerProductContent">
           <h1>{name}</h1>
           <hr />
           {HTMLReactParser(markdown)}
@@ -70,16 +67,6 @@ export default function ElementProduct(data: DataElementProduct) {
               </div>
             );
           })}
-          <h2>Comprar</h2>
-          <hr />
-          <p>*Nao é possivel reembolsar produtos desde vendedor.</p>
-          <button
-            onClick={() => {
-              navigate(`checkout/${name}`);
-            }}
-          >
-            COMPRAR
-          </button>
         </Col>
       </Row>
     </div>

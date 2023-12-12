@@ -1,7 +1,7 @@
 import { DataAuth } from "../../auth/auth";
 import { axios } from "../api";
 
-export type MarketplaceResponse = {
+export type ResponseGetMarketPlaceAll = {
   offers: {
     price: number;
     situation: number;
@@ -41,5 +41,5 @@ export async function getMarketplace(
   });
 
   if (response.status !== 200) throw new Error(response.statusText);
-  return response.data as MarketplaceResponse;
+  return response.data as ResponseGetMarketPlaceAll;
 }

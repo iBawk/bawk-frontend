@@ -1,37 +1,15 @@
 import "./marketplace.scss";
 import { Row, Col } from "antd";
 import StructContainer from "../../structs/container/container";
-import { useEffect, useState } from "react";
 import API from "../../../services/api/api";
-import Auth from "../../../services/auth/auth";
 import ElementProductCard from "../../elements/product-card/product-card";
-import { MarketplaceResponse } from "../../../services/api/endpoints/marketplace";
+import { ResponseGetMarketPlaceAll } from "../../../services/api/endpoints/marketplace";
 
-export default function SectionMarketplace() {
-  const [data, setData] = useState<MarketplaceResponse>();
+export interface DataSectionMarketplace {
+  offers: ResponseGetMarketPlaceAll;
+}
 
-  const [marketplaceParams, setMarketplaceParams] = useState({
-    category: "",
-    title: "",
-  });
-
-  const auth = Auth.getAuth();
-
-  useEffect(() => {
-    async function getMarketplace() {
-      if (!auth) return {} as MarketplaceResponse;
-
-      const { category, title } = marketplaceParams;
-
-      const data = await API.private.getMarketplace(auth, category, title);
-
-      console.log(data);
-      setData(data);
-    }
-
-    getMarketplace();
-  }, []);
-
+export default function SectionMarketplace({ offers }: DataSectionMarketplace) {
   return (
     <section id="SectionProducts">
       <StructContainer>
@@ -42,7 +20,7 @@ export default function SectionMarketplace() {
         </Row>
         <hr className="hr" />
         <Row gutter={[20, 30]}>
-          {data?.offers.map((offer, index) => (
+          {offers?.offers.map((offer, index) => (
             <Col key={index} span={6}>
               <ElementProductCard
                 forOwner={false}
