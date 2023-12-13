@@ -3,8 +3,8 @@ import { DataAuth } from "../../auth/auth";
 
 export type walletResponse = {
   id: string;
-  amout_free: number;
-  amout_reclused: number;
+  amount_free: number;
+  amount_recluse: number;
   user_id: string;
 };
 

@@ -59,7 +59,7 @@ export default function SectionHome({
                   <Text>Saldo Disponivel</Text>
                 </div>
                 <div className="walletResumeCardBody">
-                  <Text>R$ {walletValues.amout_free}</Text>
+                  <Text>R$ {walletValues.amount_free}</Text>
                 </div>
               </div>
               <div className="walletResumeCard">
@@ -67,7 +67,7 @@ export default function SectionHome({
                   <Text>Pendente</Text>
                 </div>
                 <div className="walletResumeCardBody">
-                  <Text>R$ {walletValues.amout_reclused}</Text>
+                  <Text>R$ {walletValues.amount_recluse}</Text>
                 </div>
               </div>
             </div>
