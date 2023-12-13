@@ -53,10 +53,10 @@ export default function SectionHome({
                 </div>
                 <div className="walletResumeCardBody">
                   <Text className="mainValue blue">
-                    R$ {chartValues.data[last].value}
+                    R$ {chartValues.data[last].value},00
                   </Text>
                   <Text className="secondaryValue">
-                    R$ {chartValues.data[last - 1].value}
+                    R$ {chartValues.data[last - 1].value},00
                   </Text>
                 </div>
               </div>
@@ -66,7 +66,7 @@ export default function SectionHome({
                 </div>
                 <div className="walletResumeCardBody">
                   <Text className="mainValue green">
-                    R$ {walletValues.amount_free}
+                    R$ {walletValues.amount_free},00
                   </Text>
                 </div>
               </div>
@@ -76,7 +76,7 @@ export default function SectionHome({
                 </div>
                 <div className="walletResumeCardBody">
                   <Text className="mainValue yellow">
-                    R$ {walletValues.amount_recluse}
+                    R$ {walletValues.amount_recluse},00
                   </Text>
                 </div>
               </div>
@@ -87,7 +87,7 @@ export default function SectionHome({
               <div className="chartHeaderLeft">
                 <Text className="mainText">GRÁFICO DE FATURAMENTO</Text>
                 <Text className="secondaryText">
-                  VENDAS R${chartValues.totalValue}
+                  VENDAS R${chartValues.totalValue},00
                 </Text>
               </div>
               <div className="chartHeaderRight">
