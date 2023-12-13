@@ -1,11 +1,11 @@
-import { useEffect } from "react";
 import StructContainer from "../../structs/container/container";
 import "./home.scss";
 
-import { Typography } from "antd";
+import { Button, Typography } from "antd";
 
 import { ResponseGetUserMe } from "../../../services/api/endpoints/user-me";
 import { walletResponse } from "../../../services/api/endpoints/wallet";
+import { Line } from "@ant-design/charts";
 
 const { Text } = Typography;
 
@@ -26,11 +26,11 @@ export default function SectionHome({
   walletValues,
   chartValues,
 }: Props) {
-  useEffect(() => {
-    console.log(user);
-    console.log(walletValues);
-    console.log(chartValues);
-  }, [user]);
+  const chartProps = {
+    data: chartValues.data,
+    xField: "date",
+    yField: "value",
+  };
 
   return (
     <section id="SectionHome">
@@ -46,30 +46,56 @@ export default function SectionHome({
             <div className="walletResumeCards">
               <div className="walletResumeCard">
                 <div className="walletResumeCardHeader">
-                  <Text>Vendas Hoje</Text>
-                  <Text>Ontem</Text>
+                  <Text className="primaryTitle">Vendas Hoje</Text>
+                  <Text className="secondaryTitle">Ontem</Text>
                 </div>
                 <div className="walletResumeCardBody">
-                  <Text>R$ {chartValues.data[0].value}</Text>
-                  <Text>R$ {chartValues.data[1].value}</Text>
+                  <Text className="mainValue blue">
+                    R$ {chartValues.data[0].value}
+                  </Text>
+                  <Text className="secondaryValue">
+                    R$ {chartValues.data[1].value}
+                  </Text>
                 </div>
               </div>
               <div className="walletResumeCard">
                 <div className="walletResumeCardHeader">
-                  <Text>Saldo Disponivel</Text>
+                  <Text className="primaryTitle">Saldo disponível</Text>
                 </div>
                 <div className="walletResumeCardBody">
-                  <Text>R$ {walletValues.amount_free}</Text>
+                  <Text className="mainValue green">
+                    R$ {walletValues.amount_free}
+                  </Text>
                 </div>
               </div>
               <div className="walletResumeCard">
                 <div className="walletResumeCardHeader">
-                  <Text>Pendente</Text>
+                  <Text className="primaryTitle">Pendente</Text>
                 </div>
                 <div className="walletResumeCardBody">
-                  <Text>R$ {walletValues.amount_recluse}</Text>
+                  <Text className="mainValue yellow">
+                    R$ {walletValues.amount_recluse}
+                  </Text>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="chartWrapper">
+            <div className="chartHeader">
+              <div className="chartHeaderLeft">
+                <Text className="mainText">GRÁFICO DE FATURAMENTO</Text>
+                <Text className="secondaryText">
+                  VENDAS R${chartValues.totalValue}
+                </Text>
+              </div>
+              <div className="chartHeaderRight">
+                <Button disabled>
+                  <Text>7 Dias</Text>
+                </Button>
+              </div>
+            </div>
+            <div className="chartBody">
+              <Line {...chartProps} />
             </div>
           </div>
         </div>
