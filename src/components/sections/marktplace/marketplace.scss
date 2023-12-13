@@ -8,6 +8,12 @@
   overflow-y: scroll;
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.389);
+  transition: all 0.3s;
+  
+  &.inative {
+    visibility: hidden;
+    opacity: 0;
+  }
 
   .containerContentModal {
     background-color: var(--secundary-color-brighter);
@@ -27,7 +33,7 @@
       align-items: center;
       justify-content: center;
     }
-    
+
     .buyButton {
       width: 100%;
       font-size: 20px;

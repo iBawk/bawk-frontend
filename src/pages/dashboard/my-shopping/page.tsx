@@ -68,7 +68,7 @@ export default function PageMyShopping() {
                     title={product.name}
                     img={API.public.getProductImageURL(product.id)}
                     description={product.description}
-                    category={product.description}
+                    category={product.category}
                     status={product.situation == 1 ? true : false}
                     onClick={() => {
                       const date = new Date(product.created_at);

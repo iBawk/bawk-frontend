@@ -31,9 +31,8 @@ export function ElementModalViewOffer({
   data,
   onClose,
 }: DataElementModalViewOffer) {
-  if (!status) return null;
   return (
-    <div className="ElementModalViewOffer">
+    <div className={`ElementModalViewOffer ${!status && "inative"}`}>
       <StructContainer className="containerContentModal">
         <Button
           className="closeButton"
