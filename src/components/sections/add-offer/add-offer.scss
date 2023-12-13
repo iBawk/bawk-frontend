@@ -1,8 +1,42 @@
-#SectionOffers{
-  .cardOffer{
+#SectionOffers {
+  .cardOffer {
     box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
     background-color: white;
     border-radius: 15px;
-    padding: 12px 12px;
+    padding: 15px;
+    transition: all 0.3s;
+
+    &.marketplace {
+      border: solid 2px green;
+    }
+
+    &.inactive {
+      opacity: 0.8;
+    }
+
+    .containerContentOffer {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 16px;
+
+      .containerText {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 18px;
+      }
+
+      .price {
+        font-size: 40px;
+        font-weight: bold;
+        color: green;
+      }
+    }
+
+    .divider {
+      margin: 30px 0;
+    }
   }
 }
