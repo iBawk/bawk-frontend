@@ -27,6 +27,7 @@ import { getWallet } from "./endpoints/wallet";
 import {
   getTransactionChart,
   getTransactionPurchases,
+  getTransactionSales,
 } from "./endpoints/transactions";
 import { getMarketplace } from "./endpoints/marketplace";
 
@@ -67,6 +68,7 @@ const API = {
     getWallet,
     getTransactionChart,
     getTransactionPurchases,
+    getTransactionSales,
   },
 };
 
