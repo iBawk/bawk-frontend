@@ -1,5 +1,5 @@
 import "./marketplace.scss";
-import { Row, Col, Button, Space } from "antd";
+import { Row, Col, Button, Space, Pagination, Flex } from "antd";
 import StructContainer from "../../structs/container/container";
 import API from "../../../services/api/api";
 import ElementProductCard from "../../elements/product-card/product-card";
@@ -10,9 +10,10 @@ import ElementProduct, {
 import { useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import Auth from "../../../services/auth/auth";
 
 export interface DataSectionMarketplace {
-  offers: ResponseGetMarketPlaceAll;
+  initialStateMarket: ResponseGetMarketPlaceAll;
 }
 
 export interface DataElementModalViewOffer {
@@ -38,20 +39,23 @@ export function ElementModalViewOffer({
           danger
           onClickCapture={onClose}
         />
-        <Space direction="vertical">
-          <Link to={`/checkout/${offerId}`}>
-            <Button className="buyButton" type="primary">
-              IR COMPRAR
-            </Button>
-          </Link>
-          <ElementProduct {...data} />
-        </Space>
+        <Link to={`/checkout/${offerId}`}>
+          <Button className="buyButton" type="primary">
+            IR COMPRAR
+          </Button>
+        </Link>
+        <ElementProduct {...data} />
       </StructContainer>
     </div>
   );
 }
 
-export default function SectionMarketplace({ offers }: DataSectionMarketplace) {
+export default function SectionMarketplace({
+  initialStateMarket,
+}: DataSectionMarketplace) {
+  const [marketState, setMarketState] =
+    useState<ResponseGetMarketPlaceAll>(initialStateMarket);
+
   const [modal, setModal] = useState<DataElementModalViewOffer>({
     status: false,
     offerId: "",
@@ -74,6 +78,19 @@ export default function SectionMarketplace({ offers }: DataSectionMarketplace) {
     },
   });
 
+  const setPage = (newPage: number) => {
+    const auth = Auth.getAuth();
+
+    if (!auth) {
+      return;
+    }
+
+    API.private
+      .getMarketplace(auth, newPage, marketState.take)
+      .then((response) => setMarketState(response))
+      .catch((e) => console.error(e));
+  };
+
   return (
     <section id="SectionProducts">
       <ElementModalViewOffer {...modal} />
@@ -85,43 +102,55 @@ export default function SectionMarketplace({ offers }: DataSectionMarketplace) {
         </Row>
         <hr className="hr" />
         <Row gutter={[20, 30]}>
-          {offers?.offers.map(({ product, price, created_at, id }, index) => (
-            <Col key={index} span={6}>
-              <ElementProductCard
-                forOwner={false}
-                status={false}
-                title={product.name}
-                description={product.description}
-                img={API.public.getProductImageURL(product.id)}
-                price={price.toString()}
-                category={product.category}
-                onClick={() => {
-                  const date = new Date(created_at);
+          {marketState?.offers.map(
+            ({ product, price, created_at, id }, index) => (
+              <Col key={index} span={6}>
+                <ElementProductCard
+                  forOwner={false}
+                  status={false}
+                  title={product.name}
+                  description={product.description}
+                  img={API.public.getProductImageURL(product.id)}
+                  price={price.toString()}
+                  category={product.category}
+                  onClick={() => {
+                    const date = new Date(created_at);
 
-                  modal.offerId = id;
+                    modal.offerId = id;
 
-                  modal.status = true;
+                    modal.status = true;
 
-                  modal.data = {
-                    name: product.name,
-                    category: product.category,
-                    createDate: `${date.getDate()}/${
-                      date.getMonth() + 1
-                    }/${date.getFullYear()}`,
-                    description: product.description,
-                    format: product.format,
-                    img: API.public.getProductImageURL(product.id),
-                    markdown: product.markdown,
-                    sallerInEmail: product.sallerInEmail,
-                    sallerInName: product.sallerInName,
-                    sallerInPhone: product.sallerInPhone,
-                    price: `${price}`,
-                  };
-                  setModal({ ...modal });
-                }}
+                    modal.data = {
+                      name: product.name,
+                      category: product.category,
+                      createDate: `${date.getDate()}/${
+                        date.getMonth() + 1
+                      }/${date.getFullYear()}`,
+                      description: product.description,
+                      format: product.format,
+                      img: API.public.getProductImageURL(product.id),
+                      markdown: product.markdown,
+                      sallerInEmail: product.sallerInEmail,
+                      sallerInName: product.sallerInName,
+                      sallerInPhone: product.sallerInPhone,
+                      price: `${price}`,
+                    };
+                    setModal({ ...modal });
+                  }}
+                />
+              </Col>
+            )
+          )}
+          <Col span={24}>
+            <Flex justify="center">
+              <Pagination
+                defaultCurrent={marketState.page + 1}
+                total={marketState.take * (marketState.pageCount + 1)}
+                pageSize={marketState.take}
+                onChange={setPage}
               />
-            </Col>
-          ))}
+            </Flex>
+          </Col>
         </Row>
       </StructContainer>
     </section>

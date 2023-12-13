@@ -31,12 +31,18 @@ export type ResponseGetMarketPlaceAll = {
 
 export async function getMarketplace(
   auth: DataAuth,
+  page: number,
+  take: number,
   title?: string,
   category?: string
 ) {
   const response = await axios.get(`/offer/marketplace/all`, {
     headers: {
       Authorization: `Bearer ${auth.token}`,
+    },
+    params: {
+      take,
+      page,
     },
   });
 

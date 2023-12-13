@@ -15,7 +15,7 @@ export async function LoaderPageMarketplace(): Promise<
 
   if (!auth) return redirect("/login");
 
-  const responseOffers = await API.private.getMarketplace(auth);
+  const responseOffers = await API.private.getMarketplace(auth, 1, 8);
 
   return {
     offers: responseOffers,
@@ -25,11 +25,11 @@ export async function LoaderPageMarketplace(): Promise<
 export default function PageMarketplace() {
   const loaderData = useLoaderData() as ResponseLoaderPageMarketplace;
 
-  console.log(loaderData);
+  console.log(loaderData.offers)
 
   return (
     <main>
-      <SectionMarketplace offers={loaderData.offers} />
+      <SectionMarketplace initialStateMarket={loaderData.offers} />
     </main>
   );
 }
