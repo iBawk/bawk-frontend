@@ -105,13 +105,13 @@ export default function SectionAddOffer({
             <Row gutter={[15, 15]}>
               {productOffers.map(
                 (
-                  { created_at, id, marketplace, price, product_id, situation },
+                  { created_at, id, marketplace, price, situation },
                   index
                 ) => {
                   const date = new Date(created_at);
 
                   return (
-                    <Col span={12}>
+                    <Col span={12} key={index}>
                       <div key={index} className="cardOffer">
                         <h3>
                           Id da oferta :<strong>{id}</strong>

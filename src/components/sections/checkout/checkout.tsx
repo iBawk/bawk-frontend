@@ -13,6 +13,11 @@ import {
   SecurityScanFilled,
 } from "@ant-design/icons";
 import { MdPix } from "react-icons/md";
+import { ResponseGetUserMe } from "../../../services/api/endpoints/user-me";
+
+export interface DataSectionCheckout {
+  userInformations?: ResponseGetUserMe;
+}
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Nome é obrigatório."),
@@ -26,7 +31,9 @@ const schema = Yup.object().shape({
   parcels: Yup.number().required("Parcelas é obrigatório."),
 });
 
-export default function SectionCheckout() {
+export default function SectionCheckout({
+  userInformations,
+}: DataSectionCheckout) {
   const { offerId } = useParams();
   const navigate = useNavigate();
 
@@ -45,9 +52,9 @@ export default function SectionCheckout() {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
-      phone: "",
+      name: userInformations?.user.name ?? "",
+      email: userInformations?.user.email ?? "",
+      phone: userInformations?.user.phone ?? "",
       paymentMethod: 1,
       cardNumber: "",
       cardMonth: "Mês",

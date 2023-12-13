@@ -17,6 +17,13 @@
     text-transform: capitalize;
   }
 
+  .containerProductContent {
+    img {
+      max-width: 100%;
+      border-radius: 15px;
+    }
+  }
+
   .containerSallerInformations {
     .subTitle {
       padding: 0;

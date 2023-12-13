@@ -8,8 +8,15 @@ import API from "../../../services/api/api";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../../services/auth/auth";
 import StructContainer from "../../structs/container/container";
+import { ResponseGetUserMe } from "../../../services/api/endpoints/user-me";
 
-export default function SectionAddProduct() {
+export interface DataSectionAddProduct {
+  userInformations?: ResponseGetUserMe;
+}
+
+export default function SectionAddProduct({
+  userInformations,
+}: DataSectionAddProduct) {
   const initialValue = { value: "", valid: false, invalid: false };
 
   const navigate = useNavigate();
@@ -17,11 +24,23 @@ export default function SectionAddProduct() {
     name: { ...initialValue },
     category: { ...initialValue },
     description: { ...initialValue },
-    email: { ...initialValue },
+    email: {
+      value: userInformations?.user.email ?? "",
+      valid: false,
+      invalid: false,
+    },
     image: { value: null, invalid: false, valid: false },
     markdown: { value: "", invalid: false, valid: false },
-    phone: { ...initialValue },
-    salerName: { ...initialValue },
+    phone: {
+      value: userInformations?.user.phone ?? "",
+      valid: false,
+      invalid: false,
+    },
+    salerName: {
+      value: userInformations?.user.name ?? "",
+      valid: false,
+      invalid: false,
+    },
     situation: 1,
   });
 

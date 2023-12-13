@@ -18,6 +18,7 @@ export type DataElementInputText = {
   min?: number;
   max?: number;
   required?: boolean;
+  placeholder?: string;
 };
 
 export default function ElementInputText({
@@ -31,6 +32,7 @@ export default function ElementInputText({
   max,
   min,
   required,
+  placeholder
 }: DataElementInputText) {
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     let newValue = event.target.value;
@@ -67,6 +69,7 @@ export default function ElementInputText({
       validateStatus={status}
     >
       <Input
+        placeholder={placeholder}
         className={`${className}`}
         onChange={onChange}
         value={value?.value}

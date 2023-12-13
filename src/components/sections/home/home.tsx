@@ -40,7 +40,7 @@ export default function SectionHome({
         <div className="homeWrapper">
           <div className="homeHeader">
             <div className="left">
-              <Text className="title">Boa-vindas, {user.user.name}</Text>
+              <Text className="title">Boas-vindas ! {user.user.name}</Text>
             </div>
           </div>
           <div className="walletResume">

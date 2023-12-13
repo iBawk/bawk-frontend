@@ -12,10 +12,9 @@ export type DataElementProduct = {
   sallerInPhone: string;
   category: string;
   description: string;
-  status: number;
   createDate: string;
   img: string;
-  price: string;
+  price?: string;
 };
 
 export default function ElementProduct(data: DataElementProduct) {
@@ -24,13 +23,10 @@ export default function ElementProduct(data: DataElementProduct) {
     img,
     category,
     createDate,
-    description,
-    format,
     markdown,
     sallerInEmail,
     sallerInName,
     sallerInPhone,
-    status,
     price,
   } = data;
 
@@ -40,7 +36,7 @@ export default function ElementProduct(data: DataElementProduct) {
         <Col span={24}>
           <div className="containerImg">
             <img className="img" src={img} alt={name} />
-            <ElementPriceTag>R$ {price}</ElementPriceTag>
+            {price && <ElementPriceTag>R$ {price}</ElementPriceTag>}
           </div>
           <div className="containerCharacteristics">
             <span>
@@ -51,7 +47,7 @@ export default function ElementProduct(data: DataElementProduct) {
             </span>
           </div>
         </Col>
-        <Col span={16}>
+        <Col span={16} className="containerProductContent">
           <h1>{name}</h1>
           <hr />
           {HTMLReactParser(markdown)}
