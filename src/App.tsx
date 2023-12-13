@@ -43,7 +43,9 @@ import PageEditProduct, {
 import PageProductOffers, {
   LoaderPageProductOffers,
 } from "./pages/dashboard/product-offers/product-offers";
-import PageUserProfile from "./pages/dashboard/user-profile/page";
+import PageUserProfile, {
+  loaderPageProfile,
+} from "./pages/dashboard/user-profile/page";
 import LayoutLandpage from "./pages/landpage/layout";
 import PageThanks from "./pages/checkout/thanks";
 
@@ -129,7 +131,7 @@ const router = createBrowserRouter([
       {
         path: "/painel/perfil",
         element: <PageUserProfile />,
-        loader: loaderPageSettings,
+        loader: loaderPageProfile,
       },
     ],
   },
