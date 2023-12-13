@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import API from "../../../services/api/api";
 import Auth from "../../../services/auth/auth";
 import { ResponseGetProduct } from "../../../services/api/endpoints/products";
@@ -10,26 +10,23 @@ export type DataLoaderPageMyShopping = {
 export async function loaderPageMyShopping(): Promise<
   DataLoaderPageMyShopping | Response
 > {
-  const auth = Auth.getAuth();
+  const authRes = Auth.getAuth();
 
-  if (!auth) {
-    return;
-  }
+  if (!authRes || Auth.isTokenExpired(authRes.token)) return redirect("/login");
 
-  const products = await API.private.getTransactionPurchases(auth);
-  console.log(products);
+  const responseUserMe = await API.private.getUserMe(
+    authRes.token,
+    authRes.tokenType
+  );
 
-  return {
-    products,
-  };
+  const walletValues = await API.private.getWallet(authRes);
+  const chartValues = await API.private.getTransactionChart(authRes);
+
+  return { products: [] };
 }
 
 export default function PageMyShopping() {
   const loaderData = useLoaderData() as DataLoaderPageMyShopping;
 
-  return (
-    <main>
-      <h1>oi</h1>
-    </main>
-  );
+  return <main></main>;
 }

@@ -9,8 +9,7 @@ export type chartResponse = {
   totalValue: number;
 };
 
-export type purchasesResponse = {
-  
+export type purchasesResponse = {};
 
 export async function getTransactionChart(
   auth: DataAuth
