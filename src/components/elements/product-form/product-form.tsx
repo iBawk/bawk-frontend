@@ -16,6 +16,37 @@ export type FildForm<T> = {
   valid: boolean;
 };
 
+export const Categories = [
+  "Alimentos e Bebidas",
+  "Animais",
+  "Arte e Artesanato",
+  "Bebês",
+  "Beleza e Cuidados Pessoais",
+  "Brinquedos e Jogos",
+  "Casa e Cozinha",
+  "CDs e Vinil",
+  "Computadores e Informática",
+  "Cozinha",
+  "DVD e Blu-ray",
+  "Dispositivos Amazon e Acessórios",
+  "Eletrônicos",
+  "Ferramentas e Materiais de Construção",
+  "Games",
+  "Instrumentos Musicais",
+  "Jardim e Piscina",
+  "Livros",
+  "Livros em outras Línguas",
+  "Moda",
+  "Música Digital",
+  "Papelaria e Escritório",
+  "Pet Shop",
+  "Saúde",
+  "Software",
+  "Utilidades Domésticas",
+  "Vestuário",
+  "Videogames",
+];
+
 export type DataProductForm = {
   name: FildInputText;
   salerName: FildInputText;
@@ -150,7 +181,11 @@ export default function ElementProductForm({
             />
             <Form.Item label="Categoria do produto" required>
               <Select value={data.category.value} onChange={onChangeCategory}>
-                <Select.Option value="demo">Test</Select.Option>
+                {Categories.map((category, index) => (
+                  <Select.Option key={index} value={category}>
+                    {category}
+                  </Select.Option>
+                ))}
               </Select>
             </Form.Item>
           </Col>
