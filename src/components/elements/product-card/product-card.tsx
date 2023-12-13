@@ -23,6 +23,7 @@ export type DataElementProductCard = {
   forSale?: boolean;
   forOwner?: boolean;
   onDelete?: () => void;
+  onClick?: () => void;
 };
 
 export default function ElementProductCard({
@@ -35,6 +36,7 @@ export default function ElementProductCard({
   offerLink,
   price,
   category,
+  onClick,
 }: DataElementProductCard) {
   const [modalStatus, setModalStatus] = useState<boolean>(false);
 
@@ -64,7 +66,11 @@ export default function ElementProductCard({
           </div>
         </div>
       </div>
-      <div className="ElementProductCard">
+      <div
+        className="ElementProductCard"
+        onClickCapture={onClick}
+        style={onClick && { cursor: "pointer" }}
+      >
         <div className="header">
           <img className="img" src={img} alt="" />
           {price && <ElementPriceTag>R$ {price}</ElementPriceTag>}

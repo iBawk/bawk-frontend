@@ -23,6 +23,8 @@ import {
 } from "./endpoints/user";
 
 import { postOffer } from "./endpoints/offer";
+import { getWallet } from "./endpoints/wallet";
+import { getTransactionChart } from "./endpoints/transactions";
 import { getMarketplace } from "./endpoints/marketplace";
 
 const getUserImageURL = (userId: string) =>
@@ -59,6 +61,8 @@ const API = {
     getProductOffers,
     postCheckout,
     getMarketplace,
+    getWallet,
+    getTransactionChart,
   },
 };
 

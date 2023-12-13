@@ -30,7 +30,7 @@ export default function SectionMarketplace({ offers }: DataSectionMarketplace) {
                 img={API.public.getProductImageURL(offer.product.id)}
                 price={offer.price.toString()}
                 category={offer.product.category}
-                viewLink={"/painel/produtos/visualizar/" + offer.product.id}
+                onClick={() => {}}
               />
             </Col>
           ))}

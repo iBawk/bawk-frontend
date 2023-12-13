@@ -190,12 +190,14 @@ export default function SectionUserProfile() {
                 <div className="campoWrapper">
                   <Text className="infoTilte">Documento</Text>
                   <Text className="infoDesc">
-                    {userData?.user.identification.document}
+                    {userData?.user.identification.document || "Não informado"}
                   </Text>
                 </div>
                 <div className="campoWrapper">
                   <Text className="infoTilte">Telefone</Text>
-                  <Text className="infoDesc">{userData?.user.phone}</Text>
+                  <Text className="infoDesc">
+                    {userData?.user.phone || "Não informado"}
+                  </Text>
                 </div>
               </div>
               <div className="userInfos">
@@ -206,7 +208,8 @@ export default function SectionUserProfile() {
                 <div className="campoWrapper">
                   <Text className="infoTilte">Nacionalidade</Text>
                   <Text className="infoDesc">
-                    {userData?.user.identification.nationality}
+                    {userData?.user.identification.nationality ||
+                      "Não informado"}
                   </Text>
                 </div>
               </div>
