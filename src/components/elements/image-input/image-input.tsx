@@ -34,7 +34,7 @@ export default function ElementImageInput({
         className={`${className} img`}
         src={
           imgPlaceHolder ??
-          "https://www.madeireiraestrela.com.br/images/joomlart/demo/default.jpg"
+          "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.webp"
         }
         alt=""
       />
