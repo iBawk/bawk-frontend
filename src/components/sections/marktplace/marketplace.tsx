@@ -20,7 +20,7 @@ export interface DataSectionMarketplace {
 
 export interface DataElementModalViewOffer {
   status: boolean;
-  offerId: string;
+  offerId?: string;
   data: DataElementProduct;
   onClose: () => void;
 }
@@ -41,11 +41,13 @@ export function ElementModalViewOffer({
           danger
           onClickCapture={onClose}
         />
-        <Link to={`/checkout/${offerId}`}>
-          <Button className="buyButton" type="primary">
-            <ShopFilled /> COMPRAR
-          </Button>
-        </Link>
+        {offerId && (
+          <Link to={`/checkout/${offerId}`}>
+            <Button className="buyButton" type="primary">
+              <ShopFilled /> COMPRAR
+            </Button>
+          </Link>
+        )}
         <ElementProduct {...data} />
       </StructContainer>
     </div>
