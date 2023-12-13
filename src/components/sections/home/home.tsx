@@ -32,6 +32,8 @@ export default function SectionHome({
     yField: "value",
   };
 
+  const last = chartValues.data.length - 1;
+
   return (
     <section id="SectionHome">
       <StructContainer>
@@ -51,10 +53,10 @@ export default function SectionHome({
                 </div>
                 <div className="walletResumeCardBody">
                   <Text className="mainValue blue">
-                    R$ {chartValues.data[0].value}
+                    R$ {chartValues.data[last].value}
                   </Text>
                   <Text className="secondaryValue">
-                    R$ {chartValues.data[1].value}
+                    R$ {chartValues.data[last - 1].value}
                   </Text>
                 </div>
               </div>

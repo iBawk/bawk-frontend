@@ -24,6 +24,7 @@ import {
 
 import { postOffer } from "./endpoints/offer";
 import { getWallet } from "./endpoints/wallet";
+import { getTransactionChart } from "./endpoints/transactions";
 
 const getUserImageURL = (userId: string) =>
   `http://127.0.0.1:3334/user/image/${userId}`;
@@ -59,6 +60,7 @@ const API = {
     getProductOffers,
     postCheckout,
     getWallet,
+    getTransactionChart,
   },
 };
 
