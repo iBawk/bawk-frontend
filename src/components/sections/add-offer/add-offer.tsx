@@ -6,6 +6,7 @@ import Auth from "../../../services/auth/auth";
 import API from "../../../services/api/api";
 import { Link, useNavigate } from "react-router-dom";
 import { ResponseGetProductOffer } from "../../../services/api/endpoints/products";
+import { MdOfflineBolt } from "react-icons/md";
 
 export type DataSectionAddOffer = {
   productId: string;
@@ -94,27 +95,43 @@ export default function SectionAddOffer({
       });
   };
 
+  const updateOffer = async (offer_id: string, situation: number) => {
+    const auth = Auth.getAuth();
+
+    if (!auth) {
+      navigate("/login");
+      return;
+    }
+
+    API.private
+      .updateOffer(auth, offer_id, situation)
+      .then((response) => {
+        console.log(response);
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   return (
     <section id="SectionOffers">
       <StructContainer>
-        <h1>Ofertas do produto : {productName}</h1>
+        <h1>Ofertas do produto: {productName}</h1>
         <hr />
         <Row gutter={15}>
           <Col span={16}>
             <h2>Listagem de ofertas</h2>
             <Row gutter={[15, 15]}>
               {productOffers.map(
-                (
-                  { created_at, id, marketplace, price, situation },
-                  index
-                ) => {
+                ({ created_at, id, marketplace, price, situation }, index) => {
                   const date = new Date(created_at);
 
                   return (
                     <Col span={12} key={index}>
                       <div key={index} className="cardOffer">
                         <h3>
-                          Id da oferta :<strong>{id}</strong>
+                          Id da oferta: <strong>{id}</strong>
                         </h3>
                         <p>
                           Valor : <strong>R$ {price}</strong>
@@ -142,6 +159,12 @@ export default function SectionAddOffer({
                             <Button>Ir para Checkout da Oferta</Button>
                           </Link>
                         )}
+                        <button
+                          disabled={marketplace == false}
+                          onClick={() => updateOffer(id, situation)}
+                        >
+                          <MdOfflineBolt />
+                        </button>
                       </div>
                     </Col>
                   );

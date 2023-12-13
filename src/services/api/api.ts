@@ -22,7 +22,7 @@ import {
   updateUserInformation,
 } from "./endpoints/user";
 
-import { postOffer } from "./endpoints/offer";
+import { postOffer, updateOffer } from "./endpoints/offer";
 import { getWallet } from "./endpoints/wallet";
 import {
   getTransactionChart,
@@ -61,6 +61,7 @@ const API = {
     postUserImage,
     getUserImage,
     postOffer,
+    updateOffer,
     getProductOffers,
     postCheckout,
     getMarketplace,
