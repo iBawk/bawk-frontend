@@ -8,7 +8,7 @@ import ElementProduct, {
   DataElementProduct,
 } from "../../elements/product/product";
 import { FormEvent, useState } from "react";
-import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
+import { CloseOutlined, SearchOutlined, ShopFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Auth from "../../../services/auth/auth";
 import ElementInputText from "../../elements/form-input-text/form-input-text";
@@ -44,7 +44,7 @@ export function ElementModalViewOffer({
         {offerId && (
           <Link to={`/checkout/${offerId}`}>
             <Button className="buyButton" type="primary">
-              IR COMPRAR
+              <ShopFilled /> COMPRAR
             </Button>
           </Link>
         )}
