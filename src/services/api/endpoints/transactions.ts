@@ -1,5 +1,6 @@
 import { axios } from "../api";
 import { DataAuth } from "../../auth/auth";
+import { ResponseGetProduct } from "./products";
 
 export type chartResponse = {
   data: {
@@ -27,7 +28,7 @@ export async function getTransactionChart(
 
 export async function getTransactionPurchases(
   auth: DataAuth
-): Promise<chartResponse> {
+): Promise<Array<ResponseGetProduct>> {
   const response = await axios.get(`/transaction/purchases`, {
     headers: {
       Authorization: `Bearer ${auth.token}`,
@@ -36,5 +37,5 @@ export async function getTransactionPurchases(
 
   if (response.status !== 200) throw new Error(response.statusText);
 
-  return response.data;
+  return response.data as Array<ResponseGetProduct>;
 }
