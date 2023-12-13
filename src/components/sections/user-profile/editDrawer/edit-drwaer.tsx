@@ -17,6 +17,7 @@ import * as Yup from "yup";
 import "./edit-drawer.scss";
 import { CheckCircleOutlined, UserOutlined } from "@ant-design/icons";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useEffect } from "react";
 
 const estadosDoBrasil = [
   { value: "Acre", label: "Acre" },
@@ -105,6 +106,10 @@ export default function EditUserDrawer({
     onSubmit,
     enableReinitialize: true,
   });
+
+  useEffect(() => {
+    console.log(initialValues);
+  }, [initialValues]);
 
   return (
     <>

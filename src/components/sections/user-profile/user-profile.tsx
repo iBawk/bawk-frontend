@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import API from "../../../services/api/api";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../../services/auth/auth";
@@ -36,45 +36,28 @@ const beforeUpload = (file: RcFile) => {
   return isJpgOrPng && isLt2M;
 };
 
-export default function SectionUserProfile() {
-  const navigate = useNavigate();
+interface Props {
+  userData: ResponseGetUserMe;
+  photo: string;
+}
 
-  const [userData, setUserData] = useState<ResponseGetUserMe>();
+export default function SectionUserProfile({ userData, photo }: Props) {
+  const navigate = useNavigate();
+  const auth = Auth.getAuth();
+
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState<string>("");
 
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [viewMode, setViewMode] = useState(false);
 
-  const auth = Auth.getAuth();
-
-  useEffect(() => {
-    if (!auth) {
-      navigate("/login");
-      return;
-    }
-
-    API.private
-      .getUserMe(auth.token, auth.tokenType)
-      .then((response) => {
-        setUserData(response);
-
-        const userPhoto = API.public.getUserImageURL(response.user.id);
-        setImageUrl(userPhoto);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  }, []);
-
   const editInitiaiValues = {
-    name: userData?.user?.name,
-    nationality: userData?.user?.identification.nationality,
+    name: userData.user.name,
+    nationality: userData.user.identification.nationality,
     document: userData?.user?.identification.document,
     birthDate: userData?.user?.identification.birthDate,
     street: userData?.user?.address.street,
     number: userData?.user?.address.number,
-    city: userData?.user?.address.city,
+    city: userData.user.address.city,
     country: userData?.user?.address.country,
     zipCode: userData?.user?.address.zipCode,
     complement: userData?.user?.address.complement,
@@ -159,8 +142,8 @@ export default function SectionUserProfile() {
                   }
                 }}
               >
-                {imageUrl ? (
-                  <Avatar src={imageUrl} size={130} icon={<UserOutlined />} />
+                {photo ? (
+                  <Avatar src={photo} size={130} icon={<UserOutlined />} />
                 ) : (
                   uploadButton
                 )}
@@ -258,7 +241,7 @@ export default function SectionUserProfile() {
             });
           }
         }}
-        imageUrl={imageUrl}
+        imageUrl={photo}
       />
     </section>
   );
