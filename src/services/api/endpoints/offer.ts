@@ -1,5 +1,6 @@
 import { axios } from "../api";
 import { DataAuth } from "../../auth/auth";
+import { boolean } from "yup";
 
 export enum ResponsePostOffer {
   OK = 200,
@@ -31,11 +32,12 @@ export async function postOffer(
 export async function updateOffer(
   auth: DataAuth,
   offer_id: string,
-  sitution: number
+  sitution: number,
+  marketplace: boolean
 ): Promise<ResponsePostOffer> {
   const body = {
     situation: sitution,
-    marketplace: false,
+    marketplace: marketplace,
   };
 
   const response = await axios.put(`/offer/${offer_id}`, body, {

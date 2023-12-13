@@ -1,5 +1,14 @@
 import "./add-offer.scss";
-import { Alert, Button, Col, Form, InputNumber, Row, Switch } from "antd";
+import {
+  Alert,
+  Button,
+  Col,
+  Form,
+  InputNumber,
+  Row,
+  Space,
+  Switch,
+} from "antd";
 import StructContainer from "../../../components/structs/container/container";
 import { FormEvent, useState } from "react";
 import Auth from "../../../services/auth/auth";
@@ -95,7 +104,11 @@ export default function SectionAddOffer({
       });
   };
 
-  const updateOffer = async (offer_id: string, situation: number) => {
+  const updateOffer = async (
+    offer_id: string,
+    situation: number,
+    marketplace: boolean
+  ) => {
     const auth = Auth.getAuth();
 
     if (!auth) {
@@ -104,10 +117,13 @@ export default function SectionAddOffer({
     }
 
     API.private
-      .updateOffer(auth, offer_id, situation)
-      .then((response) => {
-        console.log(response);
-        window.location.reload();
+      .updateOffer(auth, offer_id, situation, marketplace)
+      .then(async (response) => {
+        const newProductOffersValue = await API.private.getProductOffers(
+          auth,
+          productId
+        );
+        setProductOffers(newProductOffersValue);
       })
       .catch((e) => {
         console.log(e);
@@ -127,44 +143,65 @@ export default function SectionAddOffer({
                 ({ created_at, id, marketplace, price, situation }, index) => {
                   const date = new Date(created_at);
 
+                  let situationText = "Desativada";
+
+                  if (situation === 1) situationText = "Ativa";
+
+                  if (marketplace) situationText = "Listada no Marketplace";
+
                   return (
-                    <Col span={12} key={index}>
-                      <div key={index} className="cardOffer">
-                        <h3>
-                          Id da oferta: <strong>{id}</strong>
-                        </h3>
-                        <p>
-                          Valor : <strong>R$ {price}</strong>
-                        </p>
-                        <p>
-                          Criada em :{" "}
-                          <strong>
-                            {`${date.getDate()}/${
-                              date.getMonth() + 1
-                            }/${date.getFullYear()}`}
-                          </strong>
-                        </p>
-                        <p>
-                          Listada no marketplace :{" "}
-                          <strong>{marketplace ? "Sim" : "Não"}</strong>
-                        </p>
-                        <p>
-                          Situação :{" "}
-                          <strong>
-                            {situation === 1 ? "Ativa" : "Inativa"}
-                          </strong>
-                        </p>
-                        {situation === 1 && (
-                          <Link to={`/checkout/${id}`} target="_blank">
-                            <Button>Ir para Checkout da Oferta</Button>
-                          </Link>
-                        )}
-                        <button
-                          disabled={marketplace == false}
-                          onClick={() => updateOffer(id, situation)}
-                        >
-                          <MdOfflineBolt />
-                        </button>
+                    <Col span={24} key={index}>
+                      <div
+                        className={`cardOffer ${marketplace && "marketplace"} ${
+                          situation == 2 && "inactive"
+                        }`}
+                      >
+                        <div className="containerContentOffer">
+                          <div className="containerText">
+                            <span>
+                              <strong>Id</strong>: {id}
+                            </span>
+                            <span>
+                              <strong>Criada em</strong>:{" "}
+                              {`${date.getDate()}/${
+                                date.getMonth() + 1
+                              }/${date.getFullYear()}`}
+                            </span>
+                            <span>
+                              <strong>Situação</strong>: {situationText}
+                            </span>
+                          </div>
+                          <span className="price">R$ {price.toFixed(2)}</span>
+                        </div>
+                        <hr className="divider" />
+                        <div>
+                          <Space>
+                            <Link to={`/checkout/${id}`}>
+                              <Button type="primary" disabled={situation === 2}>
+                                Ir para link da oferta !
+                              </Button>
+                            </Link>
+                            <Button
+                              onClick={() => {
+                                updateOffer(id, situation === 1 ? 2 : 1, false);
+                              }}
+                            >
+                              {situation == 2
+                                ? "Ativar Oferta"
+                                : "Desativar Oferta"}
+                            </Button>
+                            <Button
+                              disabled={situation === 2}
+                              onClick={() => {
+                                updateOffer(id, situation, !marketplace);
+                              }}
+                            >
+                              {!marketplace
+                                ? "Colocar oferta no Marketplace"
+                                : "Tirar oferta do Marketplace"}
+                            </Button>
+                          </Space>
+                        </div>
                       </div>
                     </Col>
                   );

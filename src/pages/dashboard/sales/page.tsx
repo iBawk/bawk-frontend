@@ -4,7 +4,7 @@ import Auth from "../../../services/auth/auth";
 import API from "../../../services/api/api";
 import { ResponseGetTransactionsSales } from "../../../services/api/endpoints/transactions";
 import StructContainer from "../../../components/structs/container/container";
-import { Col, Flex, Row, Space } from "antd";
+import { Col, Flex, Row } from "antd";
 
 export type DataLoaderPageSales = {
   productsSales: Array<ResponseGetTransactionsSales>;
@@ -66,7 +66,7 @@ export default function PageSales() {
                         </p>
                       </div>
                       <div>
-                        <span className="price">+R$ {sale.price}</span>
+                        <span className="price">+R$ {sale.price.toFixed(2)}</span>
                       </div>
                     </Flex>
                   </div>
