@@ -20,7 +20,7 @@ export async function loaderPageSales(): Promise<
   const responseSales = await API.private.getTransactionSales(authRes);
 
   responseSales.reverse();
-  
+
   return {
     productsSales: responseSales,
   };
@@ -53,13 +53,13 @@ export default function PageSales() {
                     >
                       <div>
                         <p>
-                          <strong>Data da compra</strong>:{" "}
+                          <strong>Data da venda</strong>:{" "}
                           {`${date.getDate()}/${
                             date.getMonth() + 1
                           }/${date.getFullYear()}`}
                         </p>
                         <p>
-                          <strong>ID da compra</strong>: {sale.id}
+                          <strong>ID da venda</strong>: {sale.id}
                         </p>
                         <p>
                           <strong>ID do comprador</strong>: {sale.buyer_id}
