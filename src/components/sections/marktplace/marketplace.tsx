@@ -1,5 +1,5 @@
 import "./marketplace.scss";
-import { Row, Col, Button, Space, Pagination, Flex } from "antd";
+import { Row, Col, Button, Form, Pagination, Flex, Select } from "antd";
 import StructContainer from "../../structs/container/container";
 import API from "../../../services/api/api";
 import ElementProductCard from "../../elements/product-card/product-card";
@@ -7,10 +7,12 @@ import { ResponseGetMarketPlaceAll } from "../../../services/api/endpoints/marke
 import ElementProduct, {
   DataElementProduct,
 } from "../../elements/product/product";
-import { useState } from "react";
-import { CloseOutlined } from "@ant-design/icons";
+import { FormEvent, useState } from "react";
+import { CloseOutlined, SearchOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import Auth from "../../../services/auth/auth";
+import ElementInputText from "../../elements/form-input-text/form-input-text";
+import { Categories } from "../../elements/product-form/product-form";
 
 export interface DataSectionMarketplace {
   initialStateMarket: ResponseGetMarketPlaceAll;
@@ -53,6 +55,16 @@ export function ElementModalViewOffer({
 export default function SectionMarketplace({
   initialStateMarket,
 }: DataSectionMarketplace) {
+  const [filter, setFilter] = useState<{
+    category: string;
+    search: string;
+    loading: boolean;
+  }>({
+    category: "",
+    search: "",
+    loading: false,
+  });
+
   const [marketState, setMarketState] =
     useState<ResponseGetMarketPlaceAll>(initialStateMarket);
 
@@ -91,16 +103,86 @@ export default function SectionMarketplace({
       .catch((e) => console.error(e));
   };
 
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    filter.loading = true;
+    setFilter({ ...filter });
+
+    const auth = Auth.getAuth();
+
+    if (!auth) {
+      return;
+    }
+
+    API.private
+      .getMarketplace(
+        auth,
+        marketState.page,
+        marketState.take,
+        filter.search,
+        filter.category,
+      )
+      .then((response) => {
+        filter.loading = false;
+        setFilter({ ...filter });
+        setMarketState(response);
+      })
+      .catch((e) => {
+        filter.loading = false;
+        setFilter({ ...filter });
+        console.error(e);
+      });
+  };
+
   return (
     <section id="SectionProducts">
       <ElementModalViewOffer {...modal} />
       <StructContainer>
-        <Row>
-          <Col className="containerInformations" span={24}>
-            <h1>MARKETPLACE</h1>
-          </Col>
-        </Row>
+        <h1>MARKETPLACE</h1>
         <hr className="hr" />
+        <Form layout="vertical" onSubmitCapture={onSubmit}>
+          <Row gutter={15}>
+            <Col span={8}>
+              <ElementInputText
+                placeholder="Pesquisar"
+                value={{ value: filter.search, valid: false, invalid: false }}
+                max={100}
+                setValue={(newValue) => {
+                  filter.search = newValue.value;
+                  setFilter({ ...filter });
+                }}
+              />
+            </Col>
+            <Col span={4}>
+              <Form.Item>
+                <Select
+                  value={filter.category}
+                  onChange={(newValue) => {
+                    filter.category = newValue;
+                    setFilter({ ...filter });
+                  }}
+                  defaultValue={""}
+                >
+                  <Select.Option value={""}>Todas Categoria</Select.Option>
+                  {Categories.map((category, index) => (
+                    <Select.Option key={index} value={category}>
+                      {category}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={1}>
+              <Button
+                loading={filter.loading}
+                icon={<SearchOutlined />}
+                type="primary"
+                htmlType="submit"
+              />
+            </Col>
+          </Row>
+        </Form>
         <Row gutter={[20, 30]}>
           {marketState?.offers.map(
             ({ product, price, created_at, id }, index) => (
@@ -144,8 +226,8 @@ export default function SectionMarketplace({
           <Col span={24}>
             <Flex justify="center">
               <Pagination
-                defaultCurrent={marketState.page + 1}
-                total={marketState.take * (marketState.pageCount + 1)}
+                defaultCurrent={marketState.page}
+                total={marketState.take * marketState.pageCount}
                 pageSize={marketState.take}
                 onChange={setPage}
               />

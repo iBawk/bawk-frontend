@@ -33,7 +33,7 @@ export async function getMarketplace(
   auth: DataAuth,
   page: number,
   take: number,
-  title?: string,
+  search?: string,
   category?: string
 ) {
   const response = await axios.get(`/offer/marketplace/all`, {
@@ -43,6 +43,8 @@ export async function getMarketplace(
     params: {
       take,
       page,
+      search,
+      category,
     },
   });
 
