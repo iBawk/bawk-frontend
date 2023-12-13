@@ -25,8 +25,6 @@ export async function LoaderPageMarketplace(): Promise<
 export default function PageMarketplace() {
   const loaderData = useLoaderData() as ResponseLoaderPageMarketplace;
 
-  console.log(loaderData.offers)
-
   return (
     <main>
       <SectionMarketplace initialStateMarket={loaderData.offers} />

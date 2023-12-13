@@ -16,14 +16,16 @@ import { MdInventory2 } from "react-icons/md";
 import PageDashboardHome, {
   loaderPageDashboardHome,
 } from "./pages/dashboard/home/home";
-import LayoutCheckout from "./pages/checkout/checkout";
+import LayoutCheckout, { LoaderPageCheckout } from "./pages/checkout/checkout";
 import PageLogin from "./pages/auth/login/login";
 import PageSignUp from "./pages/auth/sign-up/sign-up";
 import PageSales, { loaderPageSales } from "./pages/dashboard/sales/page";
 import PageProducts, {
   loaderPageProducts,
 } from "./pages/dashboard/products/page";
-import PageMarketplace, { LoaderPageMarketplace } from "./pages/dashboard/marketplace/page";
+import PageMarketplace, {
+  LoaderPageMarketplace,
+} from "./pages/dashboard/marketplace/page";
 import PageFinance, { loaderPageFinance } from "./pages/dashboard/finance/page";
 import PageMyShopping, {
   loaderPageMyShopping,
@@ -31,7 +33,7 @@ import PageMyShopping, {
 import PageSettings, {
   loaderPageSettings,
 } from "./pages/dashboard/settings/page";
-import PageAddProduct from "./pages/dashboard/add-product/page";
+import PageAddProduct, { LoaderPageAddProduct } from "./pages/dashboard/add-product/page";
 import PageViewProduct, {
   LoaderPageViewProduct,
 } from "./pages/dashboard/view-product/page";
@@ -87,6 +89,7 @@ const router = createBrowserRouter([
       {
         path: "/painel/produtos/add-produto",
         element: <PageAddProduct />,
+        loader: LoaderPageAddProduct,
       },
       {
         path: "/painel/produtos/visualizar/:id",
@@ -106,7 +109,7 @@ const router = createBrowserRouter([
       {
         path: "/painel/marketplace",
         element: <PageMarketplace />,
-        loader: LoaderPageMarketplace
+        loader: LoaderPageMarketplace,
       },
       {
         path: "/painel/financas",
@@ -133,6 +136,7 @@ const router = createBrowserRouter([
   {
     path: "/checkout/:offerId",
     element: <LayoutCheckout />,
+    loader: LoaderPageCheckout,
   },
   {
     path: "/checkout/success",
