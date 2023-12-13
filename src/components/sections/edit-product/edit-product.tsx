@@ -83,6 +83,7 @@ export default function SectionEditProduct(data: DataSectionEditProduct) {
           ok: true,
           text: "Sucesso ao editar produto !",
         });
+        navigate("/painel/produtos");
       });
 
     if (validToSend)
@@ -106,6 +107,7 @@ export default function SectionEditProduct(data: DataSectionEditProduct) {
             ok: true,
             text: "Sucesso ao editar produto !",
           });
+          navigate("/painel/produtos");
         })
         .catch((error) => {
           console.log(error);
@@ -113,7 +115,7 @@ export default function SectionEditProduct(data: DataSectionEditProduct) {
             send: true,
             loading: false,
             ok: true,
-            text: "Erro ao editar produto !",
+            text: "Erro ao editar produto! Tente nomavente mais tarde.",
           });
         });
   };
