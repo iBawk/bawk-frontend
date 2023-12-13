@@ -23,6 +23,7 @@ import {
 } from "./endpoints/user";
 
 import { postOffer } from "./endpoints/offer";
+import { getMarketplace } from "./endpoints/marketplace";
 import { getWallet } from "./endpoints/wallet";
 import { getTransactionChart } from "./endpoints/transactions";
 import { getMarketplace } from "./endpoints/marketplace";
