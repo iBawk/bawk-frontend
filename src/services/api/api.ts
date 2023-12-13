@@ -23,6 +23,7 @@ import {
 } from "./endpoints/user";
 
 import { postOffer } from "./endpoints/offer";
+import { getWallet } from "./endpoints/wallet";
 
 const getUserImageURL = (userId: string) =>
   `http://127.0.0.1:3334/user/image/${userId}`;
@@ -57,6 +58,7 @@ const API = {
     postOffer,
     getProductOffers,
     postCheckout,
+    getWallet,
   },
 };
 
