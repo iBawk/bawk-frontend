@@ -39,3 +39,31 @@ export async function getTransactionPurchases(
 
   return response.data as Array<ResponseGetProduct>;
 }
+
+export interface ResponseGetTransactionsSales {
+  aproveDate: string;
+  buyer_id: string;
+  id: string;
+  offer_id: string;
+  paymentMethod: number;
+  price: number;
+  product_id: string;
+  refoundDate: string;
+  situation: number;
+  transactionDate: string;
+  wallet_id: string;
+}
+
+export async function getTransactionSales(
+  auth: DataAuth
+): Promise<Array<ResponseGetTransactionsSales>> {
+  const response = await axios.get(`/transaction/sales`, {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+    },
+  });
+
+  if (response.status !== 200) throw new Error(response.statusText);
+
+  return response.data as Array<ResponseGetTransactionsSales>;
+}
